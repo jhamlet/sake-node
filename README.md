@@ -1,0 +1,1 @@
+Stitch is an application for composing JavaScript, CSS, HTML, and other sundry files for web development.
