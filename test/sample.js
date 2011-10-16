@@ -1,6 +1,5 @@
-
-// Global needs
-var stitch = require('../lib/stitch').stitch,
+var stitch = require('stitch'),
+    noop = function () {},
     asset_types = stitch.mimeTypes,
     js   = asset_types['text/javascript'],
     css  = asset_types['text/stylesheet'],
@@ -8,40 +7,48 @@ var stitch = require('../lib/stitch').stitch,
     html = asset_types['text/html']
 ;
 
-// Define some modules
-stitch.define('core-module', function (mod) {
+stitch.configure(function () {
+    this.set('sourceDirectory', 'path-to-source-directory');
     
-    mod.include('path-to-file.js');
-    mod.include('path-to-other-file.js');
+    this.filter(js, 'minify', noop);
+});
+
+// Define some modules
+stitch.module('core', function () {
+    
+    this.include('path-to-file.js');
+    this.include('path-to-other-file.js');
     
 });
 
-stitch.define('sub-module', function (mod) {
+stitch.module('sub', function () {
     
     // require another module's definitions
-    mod.require('core-module');
+    this.require('core-module');
     
     // JavaScript dependencies
-    mod.include('sub-path-to-file.js');
-    mod.include('sub-path-to-other-file.js', js); // say what type of asset it is
+    this.include('sub-path-to-file.js');
+    this.include('sub-path-to-other-file.js', js); // say what type of asset it is
     
-    mod.fetch('http://uri-to-content-to-include', js);
+    this.fetch('http://uri-to-content-to-include', js);
     
-    mod.comment('Include a direct comment into the generated output.');
-    mod.include_comment('path-to-comment-file');
+    // Add comments: these will be prefixed with the '/*!' style so most/some
+    // minifiers will leave this comments intact.
+    this.comment('Include a direct comment into the generated output.');
+    this.include_comment('path-to-comment-file');
     
     // CSS dependencies
-    mod.include('sub-path-to-file.scss', css);
-    mod.include('sub-path-to-other-file.scss', css);
+    this.include('sub-path-to-file.scss', css);
+    this.include('sub-path-to-other-file.scss', css);
 });
 
 // define a global filter
-stitch.filter(js, 'minifyJs', function (output) {
+stitch.filter(js, 'minify', function () {
     
 });
 
 // define a filter to be used on a type of asset
-stitch.filter(css, stitch.filters.minifyCss);
+stitch.filter(css, noop);
 
 // include signature
 //      path
@@ -51,4 +58,4 @@ stitch.filter(css, stitch.filters.minifyCss);
 //      assetType, filterName, filterFn -> define a filter
 //      assetType, filterFn -> set a filter for an asset
 
-console.log(stitch.get('core-module').compose(js).render());
+console.log(stitch.module('sub').compose(js).render());
