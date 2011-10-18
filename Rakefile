@@ -28,8 +28,8 @@ file 'package.json' => [:clean] do |t|
   end
 end
 
-task :run => ['package.json'] do |t|
-  src = ENV['src']
-  ENV['NODE_PATH'] = File.realdirpath('./')
-  puts ENV['NODE_PATH']
+task :run do |t|
+  src = ENV['src'] || "./test/sample.js"
+  ENV['NODE_PATH'] = File.realdirpath('./lib')
+  sh "node #{src}"
 end
