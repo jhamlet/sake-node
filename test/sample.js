@@ -1,6 +1,4 @@
 
-console.dir(global.util);
-
 var stitch = require('stitch'),
     noop = function () {},
     asset_types = stitch.mimeTypes,
@@ -9,6 +7,9 @@ var stitch = require('stitch'),
     json = asset_types['application/json'],
     html = asset_types['text/html']
 ;
+
+// console.dir(require('stitch/config'));
+// console.dir(stitch.configure());
 
 stitch.configure(function () {
     this.sourcePaths.push('path-to-source-directory');
@@ -63,11 +64,12 @@ filter(css, noop);
 //      assetType, filterName, filterFn -> define a filter
 //      assetType, filterFn -> set a filter for an asset
 
-console.log(stitch.compose('sub', js).render());
+// console.log(stitch.compose('sub', js).render());
 
-stitch.module('subsub', function () {
-    this.include('some-path-file.js');
-});
+// stitch.module('subsub', function () {
+//     this.include('some-path-file.js');
+// });
 
 // console.dir(stitch);
 
+console.dir(stitch.config().module('core'));
