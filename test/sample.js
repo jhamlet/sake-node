@@ -72,4 +72,4 @@ filter(css, noop);
 
 // console.dir(stitch);
 
-console.dir(stitch.config().module('core').__proto__);
+console.dir(stitch.config().module('sub'));
