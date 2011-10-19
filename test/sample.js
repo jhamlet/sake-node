@@ -1,5 +1,5 @@
 
-var stitch = require('stitch'),
+var stitch = require('stitch').Stitch,
     noop = function () {},
     asset_types = stitch.mimeTypes,
     js   = asset_types['text/javascript'],
@@ -72,4 +72,5 @@ filter(css, noop);
 
 // console.dir(stitch);
 
-console.dir(stitch.config().module('sub'));
+// console.dir(stitch.config().module('sub'));
+console.dir(require('stitch/config').Config);
