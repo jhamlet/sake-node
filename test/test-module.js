@@ -1,6 +1,6 @@
 
 (function (exports) {
-    var Module = require('stitch/module'),
+    var Module = require('stitch/module').Module,
         Test,
         instance;
     
