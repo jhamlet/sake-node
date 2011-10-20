@@ -10,6 +10,9 @@ Test = Creator.extend({
         this.name = "Test";
         console.log("Initing Test instance.");
     },
+    get baz () {
+        return 'baz';
+    },
     otherProp: "def",
     woohoo: function (txt) {
         console.log("woohoo: " + this.name + " says '" + txt + "'");
@@ -31,6 +34,5 @@ Test2 = Test.extend({
 console.log(Test2);
 instance = Test2.create();
 console.log(instance);
-console.log(instance.__proto__);
 
 }(exports));
