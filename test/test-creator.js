@@ -13,7 +13,7 @@ Test = Creator.extend({
     get baz () {
         return 'baz';
     },
-    otherProp: "def",
+    otherProp: "foo",
     woohoo: function (txt) {
         console.log("woohoo: " + this.name + " says '" + txt + "'");
     }
@@ -34,5 +34,10 @@ Test2 = Test.extend({
 console.log(Test2);
 instance = Test2.create();
 console.log(instance);
+console.log(instance.baz);
+console.log(instance.otherProp);
+instance.woohoo("world");
+
+console.log(JSON.stringify(instance, null, 4));
 
 }(exports));
