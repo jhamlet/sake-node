@@ -70,7 +70,7 @@ filter(css, noop);
 //     this.include('some-path-file.js');
 // });
 
-// console.dir(stitch);
+console.dir(stitch);
 
 // console.dir(stitch.config().module('sub'));
-console.dir(require('stitch/config').Config);
+// console.dir(require('stitch/config').Config);
