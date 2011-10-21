@@ -1,13 +1,14 @@
 
 var stitch = require('stitch').Stitch,
     noop = function () {},
-    asset_types = stitch.mimeTypes,
+    asset_types = stitch.types,
     js   = asset_types['text/javascript'],
     css  = asset_types['text/stylesheet'],
     json = asset_types['application/json'],
     html = asset_types['text/html']
 ;
 
+console.dir(stitch);
 // console.dir(require('stitch/config'));
 // console.dir(stitch.configure());
 
