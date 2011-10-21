@@ -4,6 +4,9 @@ var Proteus = require('stitch/proteus'),
     instance
 ;
 
+// Class1 = Proteus.create();
+// console.dir(Class1);
+
 Class1 = Proteus.create({
     id: "Class 1",
     
