@@ -74,9 +74,19 @@ module.exports = {
             modB = cfg.getModule("sub")
         ;
         
-        // console.log(cfg.ModuleModel.getAll());
-        
         modA.description.should.eql("The core module.");
         modB.description.should.eql("A submodule description.that goes on and on");
+    },
+    
+    "Default config sourcePaths is correct": function () {
+        var cfg = ConfigModel.find({name: "default"}),
+            sourcePaths = cfg.sourcePaths
+        ;
+        
+        sourcePaths.should.contain("path-to-source-directory");
+    },
+    
+    "Inspecting stuff": function () {
+        console.log(ConfigModel.find({name: "default"}).getModule("sub").composition);
     }
 };
