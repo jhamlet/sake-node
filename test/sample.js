@@ -75,7 +75,7 @@ module.exports = {
         ;
         
         modA.description.should.eql("The core module.");
-        modB.description.should.eql("A submodule description.that goes on and on");
+        modB.description.should.eql("A submodule description. that goes on and on");
     },
     
     "Default config sourcePaths is correct": function () {
