@@ -86,7 +86,15 @@ module.exports = {
         sourcePaths.should.contain("path-to-source-directory");
     },
     
-    "Inspecting stuff": function () {
-        console.log(ConfigModel.find({name: "default"}).getModule("sub").composition);
+    "Types should be correct": function () {
+        var types = stitch.types;
+        
+        should.exist(types);
+        
+        types["text/javascript"].should.eql("js");
+        types["text/stylesheet"].should.eql("css");
+        types["text/plain"].should.eql("txt");
+        types["text/html"].should.eql("html");
+        types["application/json"].should.eql("json");
     }
 };
