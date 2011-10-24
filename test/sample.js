@@ -1,6 +1,6 @@
 
 var stitch = require('stitch').Stitch,
-    noop = function () {},
+    util    = require("stitch/util"),
     asset_types = stitch.types,
     js   = asset_types['text/javascript'],
     css  = asset_types['text/stylesheet'],
@@ -8,16 +8,16 @@ var stitch = require('stitch').Stitch,
     html = asset_types['text/html']
 ;
 
-console.dir(stitch);
+// console.dir(stitch);
 // console.dir(require('stitch/config'));
 // console.dir(stitch.configure());
 
 stitch.configure(function () {
     this.sourcePaths.push('path-to-source-directory');
     
-    this.filter(js, 'minify', noop);
+    this.filter(js, 'minify', util.noop);
     
-    this.desc("The core module.");
+    this.desc = "The core module.";
     
     this.module('core', function (core) {
         core.comment("--core module comment--");
@@ -25,8 +25,8 @@ stitch.configure(function () {
         core.include('path-to-other-file.js');
     });
 }).
-desc("A submodule description.").
-desc("that goes on and on").
+setDesc("A submodule description.").
+setDesc("that goes on and on").
 module('sub', function () {
     // require another module's definitions
     this.require('core').
@@ -55,7 +55,7 @@ filter(js, 'minify', function () {
 }).
 
 // define a filter to be used on a type of asset
-filter(css, noop);
+filter(css, util.noop);
 
 // include signature
 //      path
