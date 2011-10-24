@@ -1,64 +1,51 @@
 
-var Proteus = require('stitch/proteus'),
+var util    = require('stitch/util'),
+    Proteus = require('stitch/util/proteus'),
     Class1, Class2, Class3,
     instance
 ;
 
-// Class1 = Proteus.create();
-// console.dir(Class1);
-
-Class1 = Proteus.create({
-    id: "Class 1",
-    
-    init: function () {
-        console.log("Initing " + this.id);
+console.dir(Proteus);
+Class1 = Proteus.createClass({
+    init: function (arg) {
+        console.log("Class 1: " + arg);
+    }
+}).extend({
+    initializing: function (obj, args) {
+        console.log("Class 1 initializing instance");
     },
     
-    foo: function () {
-        console.log("Foo");
+    included: function (proteus) {
+        console.log("Class 1 included");
     },
     
-    get baz () {
-        return this._baz || 0;
-    },
-    
-    set baz (v) {
-        this._baz = v;
+    extended: function (proteus) {
+        console.log("Class 1 enhancing");
     }
 });
 
-console.log(">>> Class 1 Structure");
 console.dir(Class1);
-console.log(">>> Class 1 proteus");
-console.dir(Class1.proteus);
-console.log(">>> Class 1 prototype");
-console.dir(Object.getPrototypeOf(Class1));
-
-instance = Class1.create();
-console.log(">>> instance of Class 1 Structure");
+instance = new Class1("Hello World");
 console.dir(instance);
-console.log(">>> prototype of instance of Class 1 Structure");
-console.dir(Object.getPrototypeOf(instance));
 
-Class2 = Class1.extend({
-    id: "Class 2",
-    
-    init: function () {
-        console.log("Initing Class 2");
+Class2 = Class1.derive({
+    init: function (arg) {
+        console.log("Class 2: " + arg);
+        Class2.__super__.init.call(this, arg);
+    }
+}).extend({
+    initializing: function (obj, args) {
+        console.log("Class 2 initializing instance");
+        Class1.initializing.call(this, obj, args);
     }
 });
 
-console.log(">>> Class 2 Structure");
+// Class2.extend(Class1);
+// Class2.include(Class1);
+
 console.dir(Class2);
-console.dir(Class2.proteus);
-
-instance = Class2.create();
-console.log(">>> instance of Class 2 Structure");
+instance = new Class2("Hello World");
 console.dir(instance);
-console.log(">>> prototype of instance of Class 2 Structure");
-console.dir(Object.getPrototypeOf(instance));
 
-instance.foo();
-console.log(instance.baz);
-instance.baz = 5;
-console.log(instance.baz);
+Class3 = Proteus.createClass();
+console.dir(Class3);
