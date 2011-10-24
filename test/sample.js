@@ -1,5 +1,7 @@
 
-var stitch = require('stitch').Stitch,
+var should = require("should"),
+    ConfigModel = require("stitch/model/config").Model,
+    stitch = require('stitch').Stitch,
     util    = require("stitch/util"),
     asset_types = stitch.types,
     js   = asset_types['text/javascript'],
@@ -7,10 +9,6 @@ var stitch = require('stitch').Stitch,
     json = asset_types['application/json'],
     html = asset_types['text/html']
 ;
-
-// console.dir(stitch);
-// console.dir(require('stitch/config'));
-// console.dir(stitch.configure());
 
 stitch.configure(function () {
     this.sourcePaths.push('path-to-source-directory');
@@ -48,30 +46,37 @@ module('sub', function () {
     this.include('sub-path-to-file.scss', css);
     this.include('sub-path-to-other-file.scss', css);
 }).
-
-// define a global filter
 filter(js, 'minify', function () {
     
 }).
-
-// define a filter to be used on a type of asset
 filter(css, util.noop);
 
-// include signature
-//      path
-//      path, assetType
-
-// filter signature:
-//      assetType, filterName, filterFn -> define a filter
-//      assetType, filterFn -> set a filter for an asset
-
-// console.log(stitch.compose('sub', js).render());
-
-// stitch.module('subsub', function () {
-//     this.include('some-path-file.js');
-// });
-
-console.dir(stitch);
-
-// console.dir(stitch.config().module('sub'));
-// console.dir(require('stitch/config').Config);
+// Test-Suite
+module.exports = {
+    
+    "Default config defined": function () {
+        stitch.config("default").should.exist;
+    },
+    
+    "Modules should be defined in default": function () {
+        var cfg = stitch.config(),
+            modA = cfg.module("core"),
+            modB = cfg.module("sub")
+        ;
+        
+        should.exist(modA);
+        should.exist(modB);
+    },
+    
+    "Descriptions should be correct": function () {
+        var cfg = ConfigModel.find({name: "default"}),
+            modA = cfg.getModule("core"),
+            modB = cfg.getModule("sub")
+        ;
+        
+        // console.log(cfg.ModuleModel.getAll());
+        
+        modA.description.should.eql("The core module.");
+        modB.description.should.eql("A submodule description.that goes on and on");
+    }
+};

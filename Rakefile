@@ -28,8 +28,12 @@ file 'package.json' => [:clean] do |t|
   end
 end
 
-task :run do |t|
-  src = ARGV[1] || "./test/sample.js"
-  ENV['NODE_PATH'] = File.realdirpath('./lib')
-  sh "node #{src}"
+task :test do |t|
+  src = ARGV[1]
+  ENV['NODE_PATH'] = "#{File.realdirpath('./lib')}:/usr/local/lib/node_modules"
+  if src then
+    sh "expresso -g #{src}"
+  else
+    sh "expresso -g test/*"
+  end
 end
