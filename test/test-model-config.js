@@ -1,6 +1,7 @@
 
 var should = require("should"),
-    ConfigModel = require("stitch/model/config").Model
+    ConfigModel = require("stitch/model/config").Model,
+    ModuleModel = require("stitch/model/module").Model
 ;
 
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
     },
     
     "Create separate config": function () {
-        var cfgA = ConfigModel.get(1),
+        var cfgA = ConfigModel.get("foo"),
             cfgB = new ConfigModel("baz");
         
         cfgA.should.not.eql(cfgB);
@@ -29,30 +30,37 @@ module.exports = {
     },
     
     "Create modules in config": function () {
-        var cfgA = ConfigModel.get(1),
-            modA = new cfgA.ModuleModel("acme"),
-            modB = new cfgA.ModuleModel("paul"),
-            modC = new cfgA.ModuleModel("joe")
+        var cfgA = ConfigModel.get("foo"),
+            modA = cfgA.createModule("acme"),
+            modB = cfgA.createModule("paul"),
+            modC = cfgA.createModule("joe")
         ;
         
-        cfgA.ModuleModel.find({name: "acme"}).should.eql(modA);
-        cfgA.ModuleModel.find({name: "paul"}).should.eql(modB);
-        cfgA.ModuleModel.find({name: "joe"}).should.eql(modC);
+        should.exist(modA);
+        should.exist(modB);
+        should.exist(modC);
+        
+        cfgA.getModule("acme").should.eql(modA);
+        cfgA.getModule("paul").should.eql(modB);
+        cfgA.getModule("joe").should.eql(modC);
+        
+        cfgA.getModule("acme").should.not.eql(cfgA.getModule("paul"));
     },
     
     "Modules in one config should be different than in another": function () {
-        var cfgA = ConfigModel.get(1),
-            cfgB = ConfigModel.get(2)
+        var cfgA = ConfigModel.get("foo"),
+            cfgB = ConfigModel.get("baz")
         ;
         
-        new cfgB.ModuleModel("acme");
-        new cfgB.ModuleModel("paul");
-        new cfgB.ModuleModel("joe");
+        cfgB.createModule("acme");
+        cfgB.createModule("paul");
+        cfgB.createModule("joe");
         
         cfgA.getModule("acme").should.not.eql(cfgB.getModule("acme"));
         cfgA.getModule("paul").should.not.eql(cfgB.getModule("paul"));
         cfgA.getModule("joe").should.not.eql(cfgB.getModule("joe"));
     }
     
-}
+};
+
 

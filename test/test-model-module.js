@@ -1,8 +1,6 @@
 
 var should = require("should"),
-    ModuleModel = require("stitch/model/module").Model,
-    ModuleMdlA = ModuleModel.derive(),
-    ModuleMdlB = ModuleModel.derive()
+    ModuleModel = require("stitch/model/module").Model
 ;
 
 module.exports = {
@@ -11,25 +9,34 @@ module.exports = {
         ModuleModel.should.be.a("function");
     },
     
-    "ModuleModel A should not equal ModuleModel B": function () {
-        ModuleMdlA.should.not.eql(ModuleMdlB);
-    },
-    
     "Record creation": function () {
-        var record = new ModuleMdlA("foo", "describe foo");
+        var record = new ModuleModel("foo", "describe foo");
         should.exist(record);
         record.name.should.eql("foo");
         record.description.should.eql("describe foo");
     },
     
-    "ModuleModel B should have different records": function () {
-        var recordA = ModuleMdlA.find({name: "foo"}),
-            recordB = new ModuleMdlB("foo", "describe foo")
+    "Records can have same name": function () {
+        var recA = new ModuleModel("foo", "new foo"),
+            recB = new ModuleModel("foo", "also foo")
         ;
         
-        should.exist(recordA);
-        should.exist(recordB);
+        should.exist(recA);
+        should.exist(recB);
         
-        recordA.should.not.eql(recordB);
+        recA.should.not.eql(recB);
+
+        recA = ModuleModel.find({name: "foo"});
+        recB = ModuleModel.find({name: "foo"});
+        
+        recA.should.eql(recB);
+        
+        recA = ModuleModel.find({name: "foo", description: "new foo"});
+        recB = ModuleModel.find({name: "foo", description: "also foo"});
+        
+        should.exist(recA);
+        should.exist(recB);
+
+        recA.should.not.eql(recB);
     }
 };
