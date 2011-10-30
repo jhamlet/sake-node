@@ -3,7 +3,7 @@
     "description": "Compose JavaScript, CSS, HTML, and other sundry files for web development",
     "version": "0.0.1",
     "keywords": ["packager", "css", "javascript", "html", "web", "development"],
-    "main": "lib/stitch",
+    "main": "./lib/stitch",
     "directories": {
         "lib": "lib"
     },
@@ -15,5 +15,10 @@
         "should": "*"
     },
     "engines": { "node": ">= 0.2.0" },
-    "preferGlobal": true
+    "preferGlobal": true,
+    "private": true,
+    "modules": {
+        "stitch": "lib/stitch.js",
+        "stitch/util": "lib/stitch/util.js"
+    }
 }
