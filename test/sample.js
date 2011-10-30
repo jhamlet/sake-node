@@ -1,8 +1,8 @@
 
 var should = require("should"),
-    ConfigModel = require("stitch/model/config").Model,
+    ConfigModel = require("lib/stitch/model/config").Model,
     stitch = require('stitch').Stitch,
-    util    = require("stitch/util"),
+    util    = require("lib/stitch/util"),
     asset_types = stitch.types,
     js   = asset_types['text/javascript'],
     css  = asset_types['text/stylesheet'],

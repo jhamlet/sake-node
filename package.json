@@ -1,0 +1,19 @@
+{   
+    "name": "stitch",
+    "description": "Compose JavaScript, CSS, HTML, and other sundry files for web development",
+    "version": "0.0.1",
+    "keywords": ["packager", "css", "javascript", "html", "web", "development"],
+    "main": "lib/stitch",
+    "directories": {
+        "lib": "lib"
+    },
+    "dependencies": {
+        "proteus": ">=0.0.1"
+    },
+    "devDependencies": {
+        "expresso": "0.9.2",
+        "should": "*"
+    },
+    "engines": { "node": ">= 0.2.0" },
+    "preferGlobal": true
+}
