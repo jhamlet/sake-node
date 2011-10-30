@@ -1,6 +1,6 @@
 
 var should = require("should"),
-    ModuleModel = require("stitch/model/module").Model
+    ModuleModel = require("../lib/stitch/model/module").Model
 ;
 
 module.exports = {

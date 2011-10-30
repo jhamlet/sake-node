@@ -1,8 +1,8 @@
 
 var should = require("should"),
     Stitch = require("stitch").Stitch,
-    StitchDriver = require("stitch/driver/stitch").Driver,
-    ConfigModel = require("stitch/model/config").Model
+    StitchDriver = require("../lib/stitch/driver/stitch").Driver,
+    ConfigModel = require("../lib/stitch/model/config").Model
 ;
 
 module.exports = {
@@ -28,10 +28,8 @@ module.exports = {
     
     "Test drive": function () {
         Stitch.configure(function (core) {
-            core.description("The core module");
-            
-            core.sourePaths.push("path/to/core/stuff");
-            
+            core.description = "The core module";
+            core.sourcePaths.push("path/to/core/stuff");
         });
     }
 };

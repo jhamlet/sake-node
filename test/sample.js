@@ -1,7 +1,7 @@
 
 var should = require("should"),
-    ConfigModel = require("../lib/stitch/model/config").Model,
     stitch = require('stitch').Stitch,
+    ConfigModel = require("../lib/stitch/model/config").Model,
     util    = require("../lib/stitch/util"),
     asset_types = stitch.types,
     js   = asset_types['text/javascript'],
@@ -50,6 +50,8 @@ filter(js, 'minify', function () {
     
 }).
 filter(css, util.noop);
+
+stitch.include("./other-config.js");
 
 // Test-Suite
 module.exports = {
