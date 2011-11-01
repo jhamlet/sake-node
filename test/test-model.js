@@ -35,6 +35,27 @@ module.exports = {
         
         instance.destroy();
         should.not.exist(Model.get(id));
+    },
+    
+    "Find with a function": function () {
+        var records, len;
+        
+        new Model();
+        new Model();
+        
+        records = Model.find(function (rec) {
+            return rec.id > 1;
+        });
+        
+        len = records.length;
+        i = 0;
+        
+        len.should.eql(3);
+        
+        for (; i < len; i++) {
+            records[i].id.should.be.above(1);
+        }
+        
     }
 }
 
