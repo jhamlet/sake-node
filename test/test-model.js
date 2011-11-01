@@ -23,7 +23,7 @@ module.exports = {
     "Retrieve record by find": function () {
         var instance = new Model();
         instance.name = "foo";
-        instance = Model.find({name: "foo"});
+        instance = Model.find({name: "foo"})[0];
         instance.should.be.ok;
         instance.name.should.eql("foo");
     },

@@ -16,7 +16,7 @@ module.exports = {
     },
     
     "Retrieve config": function () {
-        var cfg = ConfigModel.find({name: "foo"});
+        var cfg = ConfigModel.find({name: "foo"})[0];
         should.exist(cfg);
     },
     

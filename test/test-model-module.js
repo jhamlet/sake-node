@@ -26,13 +26,13 @@ module.exports = {
         
         recA.should.not.eql(recB);
 
-        recA = ModuleModel.find({name: "foo"});
-        recB = ModuleModel.find({name: "foo"});
+        recA = ModuleModel.find({name: "foo"})[0];
+        recB = ModuleModel.find({name: "foo"})[0];
         
         recA.should.eql(recB);
         
-        recA = ModuleModel.find({name: "foo", description: "new foo"});
-        recB = ModuleModel.find({name: "foo", description: "also foo"});
+        recA = ModuleModel.find({name: "foo", description: "new foo"})[0];
+        recB = ModuleModel.find({name: "foo", description: "also foo"})[0];
         
         should.exist(recA);
         should.exist(recB);
