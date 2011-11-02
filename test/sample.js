@@ -20,14 +20,14 @@ stitch.configure(function () {
         
         core.comment("--core module comment--");
 
-        this.include('path-to-file.js');
-        this.include('path-to-other-file.js');
+        core.include('path-to-file.js');
+        core.include('path-to-other-file.js');
         
-        this.include("path-to-core.css");
+        core.include("path-to-core.css");
     });
 }).
 module('sub', function () {
-    this.desc = "A submodule description. ";
+    this.desc = "A submodule description.";
     this.desc = "that goes on and on";
     
     // require another module's definitions
@@ -55,7 +55,7 @@ module('sub', function () {
 module.exports = {
     
     "Default config defined": function () {
-        stitch.config("default").should.exist;
+        should.exist(stitch.config("default"));
     },
     
     "Modules should be defined in default": function () {
@@ -74,6 +74,7 @@ module.exports = {
             modB = cfg.getModule("sub")
         ;
         
+        cfg.description.should.eql("The default configuration.");
         modA.description.should.eql("The core module.");
         modB.description.should.eql("A submodule description. that goes on and on");
     },
