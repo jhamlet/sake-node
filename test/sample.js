@@ -15,7 +15,7 @@ stitch.configure(function () {
     
     this.filter(js, 'minify', util.noop);
     
-    this.desc = "The core module.";
+    this.desc = "The default configuration.";
     
     this.module('core', function (core) {
         core.comment("--core module comment--");
@@ -23,8 +23,6 @@ stitch.configure(function () {
         core.include('path-to-other-file.js');
     });
 }).
-setDesc("A submodule description.").
-setDesc("that goes on and on").
 module('sub', function () {
     // require another module's definitions
     this.require('core').
