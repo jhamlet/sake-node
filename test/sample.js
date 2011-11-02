@@ -13,21 +13,25 @@ var should = require("should"),
 stitch.configure(function () {
     this.sourcePaths.push('path-to-source-directory');
     
-    this.filter(js, 'minify', util.noop);
-    
     this.desc = "The default configuration.";
     
     this.module('core', function (core) {
+        this.desc = "The core module.";
+        
         core.comment("--core module comment--");
-        core.include('path-to-file.js');
-        core.include('path-to-other-file.js');
+
+        this.include('path-to-file.js');
+        this.include('path-to-other-file.js');
+        
+        this.include("path-to-core.css");
     });
 }).
 module('sub', function () {
+    this.desc = "A submodule description. ";
+    this.desc = "that goes on and on";
+    
     // require another module's definitions
-    this.require('core').
-         include('abc').
-         include('def');
+    this.require('core');
     
     // JavaScript dependencies
     this.include('sub-path-to-file.js');
@@ -43,13 +47,9 @@ module('sub', function () {
     // CSS dependencies
     this.include('sub-path-to-file.scss', css);
     this.include('sub-path-to-other-file.scss', css);
-}).
-filter(js, 'minify', function () {
-    
-}).
-filter(css, util.noop);
+});
 
-stitch.include("./other-config.js");
+// stitch.include("./other-config.js");
 
 // Test-Suite
 module.exports = {
@@ -69,7 +69,7 @@ module.exports = {
     },
     
     "Descriptions should be correct": function () {
-        var cfg = ConfigModel.find({name: "default"}),
+        var cfg = ConfigModel.find({name: "default"})[0],
             modA = cfg.getModule("core"),
             modB = cfg.getModule("sub")
         ;
@@ -79,7 +79,7 @@ module.exports = {
     },
     
     "Default config sourcePaths is correct": function () {
-        var cfg = ConfigModel.find({name: "default"}),
+        var cfg = ConfigModel.find({name: "default"})[0],
             sourcePaths = cfg.sourcePaths
         ;
         
