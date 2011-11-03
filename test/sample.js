@@ -11,11 +11,11 @@ var should = require("should"),
 ;
 
 stitch.configure(function () {
-    this.sourcePaths.push('path-to-source-directory');
+    sourcePaths.push('path-to-source-directory');
     
-    this.desc = "The default configuration.";
+    desc = "The default configuration.";
     
-    this.module('core', function (core) {
+    bundle('core', function (core) {
         this.desc = "The core module.";
         
         core.comment("--core module comment--");
@@ -26,7 +26,7 @@ stitch.configure(function () {
         core.include("path-to-core.css");
     });
 }).
-module('sub', function () {
+bundle('sub', function () {
     this.desc = "A submodule description.";
     this.desc = "that goes on and on";
     
@@ -60,8 +60,8 @@ module.exports = {
     
     "Modules should be defined in default": function () {
         var cfg = stitch.config(),
-            modA = cfg.module("core"),
-            modB = cfg.module("sub")
+            modA = cfg.bundle("core"),
+            modB = cfg.bundle("sub")
         ;
         
         should.exist(modA);
