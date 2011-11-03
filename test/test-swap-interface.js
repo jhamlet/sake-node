@@ -75,5 +75,7 @@ module.exports = {
         
         buz.should.eql("buzlplyx");
         
+        buz = "buz";
+        buz.should.eql("buz");
     }
 }
