@@ -2,6 +2,7 @@
 var should = require("should"),
     stitch = require('stitch').Stitch,
     ConfigModel = require("../lib/stitch/model/config").Model,
+    // BundleModel = require("../lib/stitch/model/bundle").Model,
     util    = require("../lib/stitch/util"),
     asset_types = stitch.types,
     js   = asset_types['text/javascript'],
@@ -16,40 +17,44 @@ stitch.configure(function () {
     desc = "The default configuration.";
     
     bundle('core', function (core) {
-        this.desc = "The core module.";
+        desc = "The core module.";
         
-        core.comment("--core module comment--");
+        insert("--core module comment--");
 
-        core.include('path-to-file.js');
-        core.include('path-to-other-file.js');
+        javascript(function () {
+            add('path-to-file.js');
+            add('path-to-other-file.js');
+        });
         
-        core.include("path-to-core.css");
+        stylesheet(function () {
+            file("path-to-core.css");
+        });
     });
 }).
 bundle('sub', function () {
-    this.desc = "A submodule description.";
-    this.desc = "that goes on and on";
+    desc = "A submodule description.";
+    desc = "that goes on and on";
     
-    // require another module's definitions
-    this.require('core');
+    // include another module's definitions
+    include('core');
     
     // JavaScript dependencies
-    this.include('sub-path-to-file.js');
-    this.include('sub-path-to-other-file.js', js); // say what type of asset it is
+    file('sub-path-to-file.js');
+    file(js, 'sub-path-to-other-file.js'); // say what type of asset it is
     
-    this.fetch('http://uri-to-content-to-include', js);
+    fetch(js, 'http://uri-to-content-to-include');
     
     // Add comments: these will be prefixed with the '/*!' style so most/some
     // minifiers will leave these comments intact.
-    this.comment('Include a direct comment into\nthe generated output.');
-    this.include_comment('path-to-comment-file');
+    insert('Include a direct comment into\nthe generated output.');
+    file('path-to-comment-file.txt');
     
     // CSS dependencies
-    this.include('sub-path-to-file.scss', css);
-    this.include('sub-path-to-other-file.scss', css);
+    file(css, 'sub-path-to-file.scss');
+    file(css, 'sub-path-to-other-file.scss');
 });
 
-// stitch.include("./other-config.js");
+// stitch.file("./other-config.js");
 
 // Test-Suite
 module.exports = {
@@ -77,6 +82,10 @@ module.exports = {
         cfg.description.should.eql("The default configuration.");
         modA.description.should.eql("The core module.");
         modB.description.should.eql("A submodule description. that goes on and on");
+        
+        console.log(modA.composition);
+        console.log("---");
+        console.log(modB.composition);
     },
     
     "Default config sourcePaths is correct": function () {
