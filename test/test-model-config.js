@@ -40,11 +40,11 @@ module.exports = {
         should.exist(modB);
         should.exist(modC);
         
-        cfgA.getModule("acme").should.eql(modA);
-        cfgA.getModule("paul").should.eql(modB);
-        cfgA.getModule("joe").should.eql(modC);
+        cfgA.getBundle("acme").should.eql(modA);
+        cfgA.getBundle("paul").should.eql(modB);
+        cfgA.getBundle("joe").should.eql(modC);
         
-        cfgA.getModule("acme").should.not.eql(cfgA.getModule("paul"));
+        cfgA.getBundle("acme").should.not.eql(cfgA.getBundle("paul"));
     },
     
     "Modules in one config should be different than in another": function () {
@@ -56,9 +56,9 @@ module.exports = {
         cfgB.createModule("paul");
         cfgB.createModule("joe");
         
-        cfgA.getModule("acme").should.not.eql(cfgB.getModule("acme"));
-        cfgA.getModule("paul").should.not.eql(cfgB.getModule("paul"));
-        cfgA.getModule("joe").should.not.eql(cfgB.getModule("joe"));
+        cfgA.getBundle("acme").should.not.eql(cfgB.getBundle("acme"));
+        cfgA.getBundle("paul").should.not.eql(cfgB.getBundle("paul"));
+        cfgA.getBundle("joe").should.not.eql(cfgB.getBundle("joe"));
     }
     
 };

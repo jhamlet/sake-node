@@ -1,1 +1,2 @@
 2011-10-31@08:18 - Think about making comments a 'type'. So, if one includes a file into a module with a text/plain type, it automatically becomes a comment. Would need to create a new command 'insert' or 'echo' to insert regular content as a string.
+2011-11-03@20:19 - Re-work the current driver run switching to take advantage of nodes ability to run scripts in different contexts.

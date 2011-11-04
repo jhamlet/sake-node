@@ -75,8 +75,8 @@ module.exports = {
     
     "Descriptions should be correct": function () {
         var cfg = ConfigModel.find({name: "default"})[0],
-            modA = cfg.getModule("core"),
-            modB = cfg.getModule("sub")
+            modA = cfg.getBundle("core"),
+            modB = cfg.getBundle("sub")
         ;
         
         cfg.description.should.eql("The default configuration.");
