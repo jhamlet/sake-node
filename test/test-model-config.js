@@ -25,8 +25,8 @@ module.exports = {
             cfgB = new ConfigModel("baz");
         
         cfgA.should.not.eql(cfgB);
-        cfgA.id.should.eql(1);
-        cfgB.id.should.eql(2);
+        cfgA.id.should.eql(0);
+        cfgB.id.should.eql(1);
     },
     
     "Create modules in config": function () {

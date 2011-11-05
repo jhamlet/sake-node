@@ -16,7 +16,7 @@ module.exports = {
     },
     
     "Retrieve record by id": function () {
-        var instance = Model.get(1);
+        var instance = Model.get(0);
         should.exist(instance);
     },
     
@@ -44,7 +44,7 @@ module.exports = {
         new Model();
         
         records = Model.find(function (rec) {
-            return rec.id > 1;
+            return rec.id > 0;
         });
         
         len = records.length;
@@ -53,7 +53,7 @@ module.exports = {
         len.should.eql(3);
         
         for (; i < len; i++) {
-            records[i].id.should.be.above(1);
+            records[i].id.should.be.above(0);
         }
         
     }
