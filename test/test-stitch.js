@@ -1,17 +1,12 @@
 
 var should = require("should"),
-    Stitch = require("stitch").Stitch,
-    StitchDriver = require("../lib/stitch/driver/stitch").Driver,
-    ConfigModel = require("../lib/stitch/model/config").Model
+    Stitch = require("../lib/stitch")
 ;
 
 module.exports = {
     "Stitch is loaded and valid": function () {
         Stitch.should.be.ok;
         Stitch.should.be.a("object");
-        
-        Stitch.should.eql(StitchDriver);
-        Stitch.context.should.eql(ConfigModel);
     },
     
     "Types should be correct": function () {
