@@ -31,6 +31,10 @@ stitch.run(function (stitch) {
             core.scss(function () {
                 core.file("path-to-core.scss");
             });
+            
+            // core.filter("replace-tokens");
+            // core.filter("js", "replace-tokens", "render");
+            // core.filter("replace-tokens", "compile");
         });
     }).
     bundle('sub', function () {
