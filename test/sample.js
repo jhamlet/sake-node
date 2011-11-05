@@ -1,12 +1,19 @@
 
-var should = require("should"),
-    stitch = require('../lib/stitch'),
+var should      = require("should"),
+    stitch      = require('../lib/stitch'),
     ConfigModel = require("../lib/stitch/model/config").Model
 ;
 
-stitch.run(function () {
+stitch.run(function (stitch) {
 
-    this.configure(function (cfg) {
+    stitch.define_type("text/stylesheet", "scss");
+    stitch.define_type("text/stylesheet", "less");
+    
+    // this.define_filter("minify", "text/javascript", "render", function (ctx) {
+    //     
+    // });
+    
+    stitch.configure(function (cfg) {
         cfg.sourcePaths.push('path-to-source-directory');
 
         cfg.desc = "The default configuration.";
@@ -21,8 +28,8 @@ stitch.run(function () {
                 core.add('path-to-other-file.js');
             });
 
-            core.stylesheet(function () {
-                core.file("path-to-core.css");
+            core.scss(function () {
+                core.file("path-to-core.scss");
             });
         });
     }).
