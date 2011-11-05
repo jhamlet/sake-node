@@ -1,6 +1,6 @@
 
 var should = require("should"),
-    Stitch = require("stitch").Stitch,
+    Stitch = require("../lib/stitch").Stitch,
     StitchDriver = require("../lib/stitch/driver/stitch").Driver,
     ConfigModel = require("../lib/stitch/model/config").Model
 ;

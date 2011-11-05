@@ -1,6 +1,6 @@
 
 var should = require("should"),
-    stitch = require('stitch').Stitch,
+    stitch = require('../lib/stitch').Stitch,
     ConfigModel = require("../lib/stitch/model/config").Model,
     // BundleModel = require("../lib/stitch/model/bundle").Model,
     util    = require("../lib/stitch/util"),
