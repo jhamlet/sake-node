@@ -67,11 +67,11 @@ stitch.run(function (stitch) {
 module.exports = {
     
     "Default config defined": function () {
-        should.exist(stitch.config("default"));
+        should.exist(ConfigModel.get("default"));
     },
     
     "Modules should be defined in default": function () {
-        var cfg = stitch.config(),
+        var cfg = ConfigModel.get("default"),
             modA = cfg.bundle("core"),
             modB = cfg.bundle("sub")
         ;
@@ -82,8 +82,8 @@ module.exports = {
     
     "Descriptions should be correct": function () {
         var cfg = ConfigModel.find({name: "default"})[0],
-            modA = cfg.getBundle("core"),
-            modB = cfg.getBundle("sub")
+            modA = cfg.bundle("core"),
+            modB = cfg.bundle("sub")
         ;
         
         cfg.description.should.eql("The default configuration.");
