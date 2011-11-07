@@ -48,7 +48,7 @@ stitch.run(function (stitch) {
         this.desc = "that goes on and on";
 
         // include another module's definitions
-        this.include('core');
+        this.require('core');
 
         // JavaScript dependencies
         this.file('sub-path-to-file.js');
