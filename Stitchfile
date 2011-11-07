@@ -1,3 +1,11 @@
-console.log(stitch);
-
 include("test/other-config.js");
+
+configure(function () {
+   
+   this.bundle("core", function () {
+       
+       this.insert("js", "This would be some javascript");
+       
+       this.exec("js", "ls", ["-al"]);
+   });
+});
