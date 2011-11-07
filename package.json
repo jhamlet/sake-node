@@ -4,6 +4,9 @@
     "version": "0.0.1",
     "keywords": ["packager", "css", "javascript", "html", "web", "development"],
     "main": "./lib/stitch.js",
+    "bin": {
+        "stitch": "./bin/stitch"
+    },
     "directories": {
         "lib": "lib"
     },
