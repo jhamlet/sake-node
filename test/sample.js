@@ -9,6 +9,9 @@ stitch.run(function (stitch) {
     stitch.define_type("text/stylesheet", "scss");
     stitch.define_type("text/stylesheet", "less");
     
+    stitch.type("text/javascript").extensions.push("jss");
+    
+    stitch.include("test/other-config.js");
     // this.define_filter("minify", "text/javascript", "render", function (ctx) {
     //     
     // });

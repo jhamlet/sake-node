@@ -1,1 +1,3 @@
 console.log(stitch);
+
+include("test/other-config.js");
