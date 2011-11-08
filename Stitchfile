@@ -1,25 +1,25 @@
 include("test/other-config.js");
 
 configure(function () {
-   
+    
     this.filenameFormat = "<%=bundle.name%>-<%=date.getTime()%>.<%=type.extension%>";
     
     this.bundle("core", function () {
+      this.description = "This would be some javascript";
+      this.insert("js", this.description);
+      this.exec("js", "ls", ["-al"]);
 
-       this.insert("js", "This would be some javascript");
-       this.exec("js", "ls", ["-al"]);
-
-       this.stylesheet(function () {
-           this.insert("some styles for core");
-       });
+      this.stylesheet(function () {
+         this.insert("some styles for core");
+      });
     });
    
     this.bundle("sub-module", function () {
-   
+    
        this.require("core");
-   
+       
        this.insert("js", "Some javascript for sub-module");
-
+       
        this.stylesheet(function () {
            this.insert("some styles for sub-module");
        });
