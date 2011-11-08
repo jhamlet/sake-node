@@ -2,24 +2,26 @@ include("test/other-config.js");
 
 configure(function () {
    
-   this.bundle("core", function () {
-       
+    this.filenameFormat = "<%=bundle.name%>-<%=date.getTime()%>.<%=type.extension%>";
+    
+    this.bundle("core", function () {
+
        this.insert("js", "This would be some javascript");
        this.exec("js", "ls", ["-al"]);
 
        this.stylesheet(function () {
            this.insert("some styles for core");
        });
-   });
+    });
    
-   this.bundle("sub-module", function () {
-       
+    this.bundle("sub-module", function () {
+   
        this.require("core");
-       
+   
        this.insert("js", "Some javascript for sub-module");
 
        this.stylesheet(function () {
            this.insert("some styles for sub-module");
        });
-   });
+    });
 });
