@@ -21,9 +21,9 @@ configure(function (cfg) {
     cfg.bundle("sub-module", function () {
    
        this.require("core");
-   
+       
        this.insert("js", "Some javascript for sub-module");
-
+       
        this.stylesheet(function () {
            this.insert("some styles for sub-module");
        });
