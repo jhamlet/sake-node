@@ -1,7 +1,7 @@
 
 var should = require("should"),
-    ConfigModel = require("../lib/stitch/model/config").Model,
-    BundleModel = require("../lib/stitch/model/bundle").Model
+    ConfigModel = require("../lib/stitch/model/config"),
+    BundleModel = require("../lib/stitch/model/bundle")
 ;
 
 module.exports = {

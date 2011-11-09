@@ -1,7 +1,7 @@
 
 var should      = require("should"),
     stitch      = require('../lib/stitch'),
-    ConfigModel = require("../lib/stitch/model/config").Model
+    ConfigModel = require("../lib/stitch/model/config")
 ;
 
 stitch.run(function (stitch) {

@@ -1,6 +1,6 @@
 
 var should = require("should"),
-    FilterModel = require("../lib/stitch/model/filter").Model
+    FilterModel = require("../lib/stitch/model/filter")
 ;
 
 module.exports = {
