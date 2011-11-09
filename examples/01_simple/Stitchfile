@@ -1,0 +1,27 @@
+
+configure(function (cfg) {
+    
+    cfg.sourcePaths.push("./src/js");
+    cfg.sourcePaths.push("./src/css");
+    
+    cfg.bundle("core", function (bndl) {
+        
+        bndl.javascript(function () {
+            bndl.include("core.js");
+        });
+        
+        bndl.stylesheet(function () {
+            bndl.inc("core.css");
+        });
+        
+    });
+   
+    cfg.bundle("sub-module", function (bndl) {
+        
+        bndl.require("core");
+        
+        bndl.add("sub-module.js");
+        bndl.include("sub-module.css");
+        
+    });
+});
