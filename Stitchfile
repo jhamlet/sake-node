@@ -1,20 +1,24 @@
 include("test/other-config.js");
 
-configure(function () {
+configure(function (cfg) {
    
-    this.filenameFormat = "<%=bundle.name%>-<%=date.getTime()%>.<%=type.extension%>";
+    cfg.filenameFormat = "${bundle.name}-${date.getTime()}.${type.extension}";
     
-    this.bundle("core", function () {
+    cfg.bundle("core", function (core) {
 
-       this.insert("js", "This would be some javascript");
-       this.exec("js", "ls", ["-al"]);
+       core.insert("js", "This would be some javascript");
+       core.exec("js", "ls", ["-al"]);
 
-       this.stylesheet(function () {
-           this.insert("some styles for core");
+       // ["file-one.js", "file-two.js"].forEach(function (p) {
+       //     core.file("js", p);
+       // });
+       
+       core.stylesheet(function () {
+           core.insert("some styles for core");
        });
     });
    
-    this.bundle("sub-module", function () {
+    cfg.bundle("sub-module", function () {
    
        this.require("core");
    
