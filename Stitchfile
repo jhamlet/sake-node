@@ -29,3 +29,13 @@ configure(function (cfg) {
        });
     });
 });
+
+configure("other", function (other) {
+    
+    other.bundle("other-mod", function (mod) {
+        
+        mod.require("default:core");
+        
+    });
+    
+});
