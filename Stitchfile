@@ -1,5 +1,16 @@
 include("test/other-config.js");
 
+task("one", function (t) {
+    console.log(t.name);
+});
+
+task("two", "one", function (t) {
+    console.log(t.name);
+    sh("ls -al ./", function (e, so, se) {
+        console.log(so);
+    });
+});
+
 configure(function (cfg) {
    
     cfg.filenameFormat = "${bundle.name}-${date.getTime()}.${type.extension}";
@@ -39,3 +50,5 @@ configure("other", function (other) {
     });
     
 });
+
+Task.invoke("two");
