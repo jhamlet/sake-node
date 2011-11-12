@@ -1,6 +1,8 @@
 include("test/other-config.js");
 
-task("one", function (t) {
+directory("tmpl/html");
+
+task("one", "tmpl/html", function (t) {
     console.log(t.name);
     sh("sleep 1; ls -al ./lib", function (txt) {
         console.log(txt);
@@ -25,11 +27,7 @@ task("three", "two", function (t) {
     });
 });
 
-Task.on("taskStarted", function (task) {
-    console.log("Task Started: " + task.name);
-});
-
-Task.invoke("three", "foo");
+invoke("three", "foo");
 
 configure(function (cfg) {
    
