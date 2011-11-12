@@ -1,8 +1,8 @@
 
 configure(function (cfg) {
     
-    cfg.sourcePaths.push("./src/js");
-    cfg.sourcePaths.push("./src/css");
+    cfg.source_paths.push("./src/js");
+    cfg.source_paths.push("./src/css");
     
     cfg.bundle("core", function (bndl) {
         

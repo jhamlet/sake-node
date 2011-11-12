@@ -1,4 +1,4 @@
 
 configure(function () {
-    this.sourcePaths.push("other-source-path");
+    this.source_paths.push("other-source-path");
 });

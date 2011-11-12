@@ -20,7 +20,7 @@ stitch.run(function (stitch) {
     // });
     
     stitch.configure(function (cfg) {
-        cfg.sourcePaths.push('path-to-source-directory');
+        cfg.source_paths.push('path-to-source-directory');
 
         cfg.desc = "The default configuration.";
 
@@ -101,12 +101,12 @@ module.exports = {
         console.log(modB.composition);
     },
     
-    "Default config sourcePaths is correct": function () {
+    "Default config source_paths is correct": function () {
         var cfg = ConfigModel.find({name: "default"})[0],
-            sourcePaths = cfg.sourcePaths
+            source_paths = cfg.sourcePaths
         ;
         
-        sourcePaths.should.contain("path-to-source-directory");
+        source_paths.should.contain("path-to-source-directory");
     }
     
 };

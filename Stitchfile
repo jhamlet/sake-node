@@ -1,8 +1,8 @@
 include("test/other-config.js");
 
-directory("tmpl/html");
+directory("tmp/html");
 
-task("one", "tmpl/html", function (t) {
+task("one", "tmp/html", function (t) {
     console.log(t.name);
     sh("sleep 1; ls -al ./lib", function (txt) {
         console.log(txt);
@@ -31,7 +31,7 @@ invoke("three", "foo");
 
 configure(function (cfg) {
    
-    cfg.filenameFormat = "${bundle.name}-${date.getTime()}.${type.extension}";
+    cfg.filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
     
     cfg.bundle("core", function (core) {
 

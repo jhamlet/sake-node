@@ -13,7 +13,7 @@ module.exports = {
         stitch.run(function (stitch) {
             stitch.configure(function (core) {
                 core.description = "The core module";
-                core.sourcePaths.push("path/to/core/stuff");
+                core.source_paths.push("path/to/core/stuff");
             });
         });
     }
