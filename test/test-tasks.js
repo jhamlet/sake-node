@@ -22,9 +22,16 @@ module.exports = {
             obj[t.name] = true;
         });
         
+        Task.get("core").isNeeded.should.eql(true);
+        Task.get("sub").isNeeded.should.eql(true);
+
         Task.invoke("sub");
         
         obj.core.should.eql(true);
         obj.sub.should.eql(true);
+        
+        Task.get("sub").alreadyRun.should.eql(true);
+        Task.get("core").alreadyRun.should.eql(true);
+        
     }
 };
