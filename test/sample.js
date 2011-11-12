@@ -15,10 +15,6 @@ stitch.run(function (stitch) {
     // the directory to get to the file.
     stitch.include("test/other-config.js");
     
-    // this.define_filter("minify", "text/javascript", "render", function (ctx) {
-    //     
-    // });
-    
     stitch.configure(function (cfg) {
         cfg.source_paths.push('path-to-source-directory');
 
@@ -38,9 +34,6 @@ stitch.run(function (stitch) {
                 core.include("path-to-core.scss");
             });
             
-            // core.filter("replace-tokens");
-            // core.filter("js", "replace-tokens", "render");
-            // core.filter("replace-tokens", "compile");
         });
     }).
     bundle('sub', function () {

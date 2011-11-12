@@ -14,9 +14,6 @@ task("two", "one", function (t) {
     sh("sleep 1; ls -al ./test", function (txt) {
         console.log(txt);
     });
-    // sh("ls -al ./", function (txt) {
-    //     console.log(txt);
-    // });
 });
 
 task("three", "two", function (t) {
