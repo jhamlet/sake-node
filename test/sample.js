@@ -35,7 +35,7 @@ stitch.run(function (stitch) {
             });
 
             core.scss(function () {
-                core.file("path-to-core.scss");
+                core.include("path-to-core.scss");
             });
             
             // core.filter("replace-tokens");
@@ -51,19 +51,19 @@ stitch.run(function (stitch) {
         this.require('core');
 
         // JavaScript dependencies
-        this.file('sub-path-to-file.js');
-        this.file("js", 'sub-path-to-other-file.js'); // say what type of asset it is
+        this.include('sub-path-to-file.js');
+        this.include("js", 'sub-path-to-other-file.js'); // say what type of asset it is
 
         this.fetch("js", 'http://uri-to-content-to-include');
 
         // Add comments: these will be prefixed with the '/*!' style so most/some
         // minifiers will leave these comments intact.
         this.insert('Include a direct comment into\nthe generated output.');
-        this.file('path-to-comment-file.txt');
+        this.include('path-to-comment-file.txt');
 
         // CSS dependencies
-        this.file("css", 'sub-path-to-file.scss');
-        this.file("css", 'sub-path-to-other-file.scss');
+        this.include("css", 'sub-path-to-file.scss');
+        this.include("css", 'sub-path-to-other-file.scss');
     });
 });
 

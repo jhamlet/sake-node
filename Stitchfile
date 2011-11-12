@@ -41,7 +41,7 @@ configure(function (cfg) {
        core.exec("js", "ls", ["-al"]);
 
        // ["file-one.js", "file-two.js"].forEach(function (p) {
-       //     core.file("js", p);
+       //     core.include("js", p);
        // });
        
        core.stylesheet(function () {
