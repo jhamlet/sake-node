@@ -26,12 +26,12 @@ stitch.run(function (stitch) {
             insert("--core module comment--");
 
             javascript(function () {
-                add('path-to-file.js');
-                add('path-to-other-file.js');
+                read('path-to-file.js');
+                read('path-to-other-file.js');
             });
 
             scss(function () {
-                file("path-to-core.scss");
+                read("path-to-core.scss");
             });
             
         });
@@ -46,19 +46,19 @@ stitch.run(function (stitch) {
             include('core');
 
             // JavaScript dependencies
-            file('sub-path-to-file.js');
-            file("js", 'sub-path-to-other-file.js'); // say what type of asset it is
+            read('sub-path-to-file.js');
+            read("js", 'sub-path-to-other-file.js'); // say what type of asset it is
 
             fetch("js", 'http://uri-to-content-to-include');
 
             // Add comments: these will be prefixed with the '/*!' style so most/some
             // minifiers will leave these comments intact.
             insert('Include a direct comment into\nthe generated output.');
-            file('path-to-comment-file.txt');
+            read('path-to-comment-file.txt');
 
             // CSS dependencies
-            file("css", 'sub-path-to-file.scss');
-            file("css", 'sub-path-to-other-file.scss');
+            read("css", 'sub-path-to-file.scss');
+            read("css", 'sub-path-to-other-file.scss');
         });
     });
     

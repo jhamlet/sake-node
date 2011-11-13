@@ -68,5 +68,5 @@ configure("other", function (other) {
     
 });
 
-invoke("three", "foo");
+// invoke("three", "foo");
 
