@@ -23,15 +23,6 @@ task("three", "two", function (t) {
     });
 });
 
-task("replace-tokens", "render", function (t, ctx) {
-    
-});
-
-task("minify-js", ["replace-tokens", "render-js"], function (t, ctx) {
-    
-});
-
-
 configure(function (cfg) {
     filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
     
@@ -47,12 +38,6 @@ configure(function (cfg) {
            insert("some styles for core");
         });
 
-        on("compile", "js", function (t) {
-   
-        });
-        on_render("js", "three");
-        on_compile("js", "three");
-       
     });
    
     bundle("sub-module", function () {

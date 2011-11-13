@@ -37,8 +37,6 @@ stitch.run(function (stitch) {
         });
 
         bundle('sub', function () {
-            console.log(insert.toString());
-            
             desc = "A submodule description.";
             desc = "that goes on and on";
 
@@ -92,10 +90,6 @@ module.exports = {
         cfg.description.should.eql("The default configuration.");
         modA.description.should.eql("The core module.");
         modB.description.should.eql("A submodule description. that goes on and on");
-        
-        console.log(modA.composition);
-        console.log("---");
-        console.log(modB.composition);
     },
     
     "Default config source_paths is correct": function () {

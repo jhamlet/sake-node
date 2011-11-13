@@ -1,7 +1,4 @@
 
-task("minify-js", function (t, ctx) {
-    
-});
 
 configure(function () {
     
@@ -12,7 +9,6 @@ configure(function () {
         
         javascript(function () {
             js("core.js");
-            on_render("minify-js");
         });
         
         stylesheet(function () {
@@ -29,4 +25,13 @@ configure(function () {
         css("sub-module.css");
         
     });
+});
+
+task("weave", function (t, ctx) {
+    if (!options.minify) {
+        return;
+    }
+    
+    if (ctx.type === type("js")) {
+    }
 });
