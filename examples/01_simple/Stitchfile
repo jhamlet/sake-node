@@ -1,4 +1,8 @@
 
+task("minify-js", function (t, ctx) {
+    
+});
+
 configure(function (cfg) {
     
     cfg.source_paths.push("./src/js");
@@ -8,6 +12,7 @@ configure(function (cfg) {
         
         bndl.javascript(function () {
             bndl.include("core.js");
+            bndl.on_render("minify-js");
         });
         
         bndl.stylesheet(function () {
