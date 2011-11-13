@@ -3,30 +3,30 @@ task("minify-js", function (t, ctx) {
     
 });
 
-configure(function (cfg) {
+configure(function () {
     
-    cfg.source_paths.push("./src/js");
-    cfg.source_paths.push("./src/css");
+    source_paths.push("./src/js");
+    source_paths.push("./src/css");
     
-    cfg.bundle("core", function (bndl) {
+    bundle("core", function () {
         
-        bndl.javascript(function () {
-            bndl.include("core.js");
-            bndl.on_render("minify-js");
+        javascript(function () {
+            js("core.js");
+            on_render("minify-js");
         });
         
-        bndl.stylesheet(function () {
-            bndl.inc("core.css");
+        stylesheet(function () {
+            css("core.css");
         });
         
     });
    
-    cfg.bundle("sub-module", function (bndl) {
+    bundle("sub-module", function () {
         
-        bndl.require("core");
+        include("core");
         
-        bndl.add("sub-module.js");
-        bndl.include("sub-module.css");
+        js("sub-module.js");
+        css("sub-module.css");
         
     });
 });

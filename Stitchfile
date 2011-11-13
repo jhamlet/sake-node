@@ -17,7 +17,6 @@ task("two", "one", function (t) {
 });
 
 task("three", "two", function (t) {
-    console.log(t.name);
     console.log("says: " + arguments[1]);
     sh("sleep 1; ls -al ./examples", function (txt) {
         console.log(txt);
@@ -25,38 +24,36 @@ task("three", "two", function (t) {
 });
 
 configure(function (cfg) {
-   
-    cfg.filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
+    filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
     
-    cfg.bundle("core", function (core) {
+    bundle("core", function (core) {
+        insert("js", "This would be some javascript");
+        exec("js", "ls", ["-al"]);
 
-       core.insert("js", "This would be some javascript");
-       core.exec("js", "ls", ["-al"]);
+        // ["file-one.js", "file-two.js"].forEach(function (p) {
+        //     core.file("js", p);
+        // });
 
-       // ["file-one.js", "file-two.js"].forEach(function (p) {
-       //     core.include("js", p);
-       // });
-       
-       core.stylesheet(function () {
-           core.insert("some styles for core");
-       });
-       
-       core.on("compile", "js", function (t) {
-           
-       });
-       core.on_render("js", "three");
-       core.on_compile("js", "three");
+        stylesheet(function () {
+           insert("some styles for core");
+        });
+
+        on("compile", "js", function (t) {
+   
+        });
+        on_render("js", "three");
+        on_compile("js", "three");
        
     });
    
-    cfg.bundle("sub-module", function () {
+    bundle("sub-module", function () {
    
-       this.require("core");
+       include("core");
        
-       this.insert("js", "Some javascript for sub-module");
+       insert("js", "Some javascript for sub-module");
        
-       this.stylesheet(function () {
-           this.insert("some styles for sub-module");
+       stylesheet(function () {
+           insert("some styles for sub-module");
        });
     });
 });
@@ -65,8 +62,11 @@ configure("other", function (other) {
     
     other.bundle("other-mod", function (mod) {
         
-        mod.require("default:core");
+        mod.include("default:core");
         
     });
     
 });
+
+invoke("three", "foo");
+
