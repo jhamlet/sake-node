@@ -6,8 +6,8 @@ var should      = require("should"),
 
 stitch.run(function (stitch) {
 
-    define_type("text/stylesheet", "scss");
-    define_type("text/stylesheet", "less");
+    type("text/stylesheet", "scss");
+    type("text/stylesheet", "less");
 
     type("text/javascript").extension = "jss";
     
