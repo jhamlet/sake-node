@@ -16,7 +16,6 @@ stitch.run(function (stitch) {
     include("test/other-config.js");
     
     configure(function (cfg) {
-        source_paths.push('path-to-source-directory');
 
         desc = "The default configuration.";
 
@@ -90,14 +89,6 @@ module.exports = {
         cfg.description.should.eql("The default configuration.");
         modA.description.should.eql("The core module.");
         modB.description.should.eql("A submodule description. that goes on and on");
-    },
-    
-    "Default config source_paths is correct": function () {
-        var cfg = ConfigModel.find({name: "default"})[0],
-            source_paths = cfg.sourcePaths
-        ;
-        
-        source_paths.should.contain("path-to-source-directory");
     }
     
 };
