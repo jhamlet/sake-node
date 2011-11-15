@@ -64,5 +64,5 @@ configure("other", function (other) {
     
 });
 
-Task.invoke("three", "foo");
+// Task.invoke("three", "foo");
 
