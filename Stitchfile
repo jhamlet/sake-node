@@ -17,10 +17,12 @@ task("two", "one", function (t) {
 });
 
 task("three", "two", function (t) {
+    console.log(t.name);
     console.log("says: " + arguments[1]);
     sh("sleep 1; ls -al ./examples", function (txt) {
         console.log(txt);
     });
+    sh("ls -al");
 });
 
 configure(function (cfg) {
@@ -29,6 +31,7 @@ configure(function (cfg) {
     bundle("core", function (core) {
         insert("js", "This would be some javascript");
         fetch("js", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js");
+        exec("js", "ls -al");
         // ["file-one.js", "file-two.js"].forEach(function (p) {
         //     core.file("js", p);
         // });
@@ -61,5 +64,5 @@ configure("other", function (other) {
     
 });
 
-// invoke("three", "foo");
+Task.invoke("three", "foo");
 
