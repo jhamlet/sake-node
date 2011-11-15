@@ -20,7 +20,6 @@ configure(function () {
     });
    
     bundle("sub-module", function () {
-        
         include("core");
         
         js(Path.join(baseJsDir, "sub-module.js"));
