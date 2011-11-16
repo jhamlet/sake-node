@@ -1,4 +1,4 @@
 
 configure(function () {
-    this.source_path += "other-source-path";
+    global.other_paths = "./foo/path";
 });
