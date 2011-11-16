@@ -1,25 +1,29 @@
 
-
 configure(function () {
+    
+    var Path        = require("path"),
+        srcDir      = "src",
+        baseJsDir   = Path.join(srcDir, "js"),
+        baseCssDir  = Path.join(srcDir, "css")
+    ;
     
     bundle("core", function () {
         
         javascript(function () {
-            js("src/js/core.js");
+            js(Path.join(baseJsDir, "core.js"));
         });
         
         stylesheet(function () {
-            css("src/css/core.css");
+            css(Path.join(baseCssDir, "core.css"));
         });
         
     });
    
     bundle("sub-module", function () {
-        
         include("core");
         
-        js("src/js/sub-module.js");
-        css("src/css/sub-module.css");
+        js(Path.join(baseJsDir, "sub-module.js"));
+        css(Path.join(baseCssDir, "sub-module.css"));
         
     });
 });
