@@ -1,7 +1,10 @@
-include("test/other-config.js");
+// include("test/other-config.js");
 
 directory("tmp/html");
 
+console.log(this);
+
+description("Description for task one");
 task("one", "tmp/html", function (t) {
     console.log(t.name);
     sh("sleep 1; ls -al ./lib", function (txt) {
@@ -9,6 +12,7 @@ task("one", "tmp/html", function (t) {
     });
 });
 
+description("Description for task two");
 task("two", "one", function (t) {
     console.log(t.name);
     sh("sleep 1; ls -al ./test", function (txt) {
@@ -16,6 +20,7 @@ task("two", "one", function (t) {
     });
 });
 
+description("Description for task three");
 task("three", "two", function (t) {
     console.log(t.name);
     console.log("says: " + arguments[1]);

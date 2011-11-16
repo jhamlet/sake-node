@@ -13,7 +13,7 @@ stitch.run(function (stitch) {
     
     // This file is usually run in the main directory so we have to prefix
     // the directory to get to the file.
-    include("test/other-config.js");
+    // include("test/other-config.js");
     
     configure(function (cfg) {
 
