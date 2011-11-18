@@ -1,3 +1,7 @@
+
+
+
+
 include("test/other-config.js");
 
 directory("tmp/html");
@@ -25,10 +29,10 @@ task("three", "two", function (t) {
     sh("ls -al");
 });
 
-configure(function (cfg) {
+configure(function () {
     filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
     
-    bundle("core", function (core) {
+    bundle("core", function () {
         insert("js", "This would be some javascript");
         fetch("js", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js");
         exec("js", "ls -al");
@@ -54,11 +58,11 @@ configure(function (cfg) {
     });
 });
 
-configure("other", function (other) {
+configure("other", function (cfg) {
     
-    other.bundle("other-mod", function (mod) {
+    bundle("other-mod", function (mod) {
         
-        mod.include("default:core");
+        include("default:core");
         
     });
     
