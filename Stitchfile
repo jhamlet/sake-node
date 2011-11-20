@@ -29,7 +29,7 @@ task("three", "two", function (t) {
     sh("ls -al");
 });
 
-// include("test/other-config.js");
+include("test/other-config.js");
 
 configure(function (cfg) {
     cfg.filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
