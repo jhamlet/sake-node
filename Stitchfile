@@ -70,7 +70,5 @@ configure("other", function (cfg) {
     
 });
 
-console.log(global);
-
 Task.invoke("three", "foo");
 

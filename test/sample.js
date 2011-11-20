@@ -6,10 +6,10 @@ var should      = require("should"),
 
 stitch.run(function (stitch) {
 
-    type("text/stylesheet", "scss");
-    type("text/stylesheet", "less");
+    stitch.type("text/stylesheet", "scss");
+    stitch.type("text/stylesheet", "less");
 
-    type("text/javascript").extension = "jss";
+    stitch.type("text/javascript").extension = "jss";
     
     // This file is usually run in the main directory so we have to prefix
     // the directory to get to the file.
