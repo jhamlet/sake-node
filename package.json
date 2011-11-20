@@ -11,8 +11,9 @@
         "lib": "lib"
     },
     "dependencies": {
-        "proteus": ">=0.0.7",
-        "commander": ">=0.3.3"
+        "proteus":      ">=0.0.7",
+        "commander":    ">=0.3.3",
+        "glob":         ">=2.10"
     },
     "devDependencies": {
         "expresso": "0.9.2",
