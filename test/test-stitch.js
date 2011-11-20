@@ -1,6 +1,6 @@
 
 var should = require("should"),
-    stitch = require("../lib/stitch")
+    stitch = require("../lib")
 ;
 
 module.exports = {

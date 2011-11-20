@@ -1,9 +1,9 @@
 
 var should  = require("should"),
     Model   = require("../lib/stitch/model"),
-    Task    = require("../lib/stitch/task"),
-    FileTask = require("../lib/stitch/task/file-task"),
-    FileCreateTask = require("../lib/stitch/task/file-create-task")
+    Task    = require("../lib/stitch/model/task"),
+    FileTask = require("../lib/stitch/model/task/file-task"),
+    FileCreateTask = require("../lib/stitch/model/task/file-create-task")
 ;
 
 
