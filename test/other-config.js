@@ -1,4 +1,6 @@
 
+console.log(global);
+
 configure(function () {
-    global.other_paths = "./foo/path";
+    var other_paths = "./foo/path";
 });

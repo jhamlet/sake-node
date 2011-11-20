@@ -29,9 +29,9 @@ task("three", "two", function (t) {
     sh("ls -al");
 });
 
-stitch.include("test/other-config.js");
+// include("test/other-config.js");
 
-stitch.configure(function (cfg) {
+configure(function (cfg) {
     cfg.filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
     
     cfg.bundle("core", function (core) {
@@ -60,7 +60,7 @@ stitch.configure(function (cfg) {
     });
 });
 
-stitch.configure("other", function (cfg) {
+configure("other", function (cfg) {
     
     cfg.bundle("other-mod", function (mod) {
         
@@ -69,6 +69,8 @@ stitch.configure("other", function (cfg) {
     });
     
 });
+
+console.log(global);
 
 Task.invoke("three", "foo");
 
