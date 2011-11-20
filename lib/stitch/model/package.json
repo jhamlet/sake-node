@@ -1,4 +1,4 @@
 {
     "name": "model",
-    "main": "model.js"
+    "main": "./model.js"
 }

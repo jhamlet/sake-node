@@ -1,4 +1,4 @@
 {
     "name": "driver",
-    "main": "driver.js"
+    "main": "./driver.js"
 }

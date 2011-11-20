@@ -1,6 +1,6 @@
 
 var should      = require("should"),
-    stitch      = require('../lib'),
+    stitch      = require('../lib/stitch/app'),
     ConfigModel = require("../lib/stitch/model/config")
 ;
 
