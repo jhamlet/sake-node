@@ -1,6 +1,6 @@
 
 var should = require("should"),
-    TypeModel = require("../lib/stitch/model/type")
+    TypeModel = require("../lib/model/type")
 ;
 
 module.exports = {

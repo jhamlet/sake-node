@@ -1,6 +1,6 @@
 
 var should = require("should"),
-    ConfigModel = require("../lib/stitch/model/config")
+    ConfigModel = require("../lib/model/config")
 ;
 
 module.exports = {

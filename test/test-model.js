@@ -1,6 +1,6 @@
 
 var should = require("should"),
-    Model = require("../lib/stitch/model").derive()
+    Model = require("../lib/model").derive()
 ;
 
 module.exports = {
