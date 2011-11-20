@@ -1,7 +1,6 @@
 
 var should = require("should"),
-    ConfigModel = require("../lib/stitch/model/config"),
-    BundleModel = require("../lib/stitch/model/bundle")
+    ConfigModel = require("../lib/stitch/model/config")
 ;
 
 module.exports = {
@@ -45,22 +44,7 @@ module.exports = {
         cfgA.bundle("joe").should.eql(modC);
         
         cfgA.bundle("acme").should.not.eql(cfgA.bundle("paul"));
-    },
-    
-    "Modules in one config should be different than in another": function () {
-        var cfgA = ConfigModel.get("foo"),
-            cfgB = ConfigModel.get("baz")
-        ;
-        
-        cfgB.bundle("acme");
-        cfgB.bundle("paul");
-        cfgB.bundle("joe");
-        
-        cfgA.bundle("acme").should.not.eql(cfgB.bundle("acme"));
-        cfgA.bundle("paul").should.not.eql(cfgB.bundle("paul"));
-        cfgA.bundle("joe").should.not.eql(cfgB.bundle("joe"));
     }
-    
 };
 
 

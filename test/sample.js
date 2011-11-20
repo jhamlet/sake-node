@@ -13,49 +13,49 @@ stitch.run(function (stitch) {
     
     // This file is usually run in the main directory so we have to prefix
     // the directory to get to the file.
-    include("test/other-config.js");
+    stitch.include("test/other-config.js");
     
-    configure(function (cfg) {
+    stitch.configure(function (cfg) {
 
-        desc = "The default configuration.";
+        cfg.desc = "The default configuration.";
 
-        bundle('core', function (core) {
-            desc = "The core module.";
+        cfg.bundle('core', function (core) {
+            core.desc = "The core module.";
 
-            insert("--core module comment--");
+            core.insert("--core module comment--");
 
-            javascript(function () {
-                read('path-to-file.js');
-                read('path-to-other-file.js');
+            core.javascript(function () {
+                core.read('path-to-file.js');
+                core.read('path-to-other-file.js');
             });
 
-            scss(function () {
-                read("path-to-core.scss");
+            core.scss(function () {
+                core.read("path-to-core.scss");
             });
             
         });
 
-        bundle('sub', function () {
-            desc = "A submodule description.";
-            desc = "that goes on and on";
+        cfg.bundle('sub', function (sub) {
+            sub.desc = "A submodule description.";
+            sub.desc = "that goes on and on";
 
             // include another module's definitions
-            include('core');
+            sub.include('core');
 
             // JavaScript dependencies
-            read('sub-path-to-file.js');
-            read("js", 'sub-path-to-other-file.js'); // say what type of asset it is
+            sub.read('sub-path-to-file.js');
+            sub.read("js", 'sub-path-to-other-file.js'); // say what type of asset it is
 
-            fetch("js", 'http://uri-to-content-to-include');
+            sub.fetch("js", 'http://uri-to-content-to-include');
 
             // Add comments: these will be prefixed with the '/*!' style so most/some
             // minifiers will leave these comments intact.
-            insert('Include a direct comment into\nthe generated output.');
-            read('path-to-comment-file.txt');
+            sub.insert('Include a direct comment into\nthe generated output.');
+            sub.read('path-to-comment-file.txt');
 
             // CSS dependencies
-            read("css", 'sub-path-to-file.scss');
-            read("css", 'sub-path-to-other-file.scss');
+            sub.read("css", 'sub-path-to-file.scss');
+            sub.read("css", 'sub-path-to-other-file.scss');
         });
     });
     

@@ -1,8 +1,4 @@
-
-
-
-
-include("test/other-config.js");
+var Path = require("path");
 
 directory("tmp/html");
 
@@ -29,40 +25,42 @@ task("three", "two", function (t) {
     sh("ls -al");
 });
 
-configure(function () {
-    filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
+stitch.include("test/other-config.js");
+
+stitch.configure(function (cfg) {
+    cfg.filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
     
-    bundle("core", function () {
-        insert("js", "This would be some javascript");
-        fetch("js", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js");
-        exec("js", "ls -al");
+    cfg.bundle("core", function (core) {
+        core.insert("js", "This would be some javascript for core.");
+        core.fetch("js", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js");
+        core.exec("js", "ls -al");
         // ["file-one.js", "file-two.js"].forEach(function (p) {
         //     core.file("js", p);
         // });
 
-        stylesheet(function () {
-           insert("some styles for core");
+        core.stylesheet(function () {
+           core.insert("some styles for core");
         });
 
     });
    
-    bundle("sub-module", function () {
+    cfg.bundle("sub-module", function (sub) {
    
-       include("core");
+       sub.include("core");
        
-       insert("js", "Some javascript for sub-module");
+       sub.insert("js", "Some javascript for sub-module");
        
-       stylesheet(function () {
-           insert("some styles for sub-module");
+       sub.stylesheet(function () {
+           sub.insert("some styles for sub-module");
        });
     });
 });
 
-configure("other", function (cfg) {
+stitch.configure("other", function (cfg) {
     
-    bundle("other-mod", function (mod) {
+    cfg.bundle("other-mod", function (mod) {
         
-        include("default:core");
+        mod.include("default:sub-module");
         
     });
     
