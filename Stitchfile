@@ -2,8 +2,6 @@ var Path = require("path");
 
 directory("tmp/html");
 
-console.log(this);
-
 description("Description for task one");
 task("one", "tmp/html", function (t) {
     console.log(t.name);
