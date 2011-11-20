@@ -1,3 +1,1 @@
 2011-10-31@08:18 - Think about making comments a 'type'. So, if one includes a file into a module with a text/plain type, it automatically becomes a comment. Would need to create a new command 'insert' or 'echo' to insert regular content as a string.
-
-2011-11-12@16:25 - Think about moving to using the Task model/system to handle compiling and rendering the bundles.
