@@ -1,29 +1,30 @@
 
-configure(function () {
+var Path = require("path");
+
+configure(function (c) {
     
-    var Path        = require("path"),
-        srcDir      = "src",
+    var srcDir      = "src",
         baseJsDir   = Path.join(srcDir, "js"),
         baseCssDir  = Path.join(srcDir, "css")
     ;
     
-    bundle("core", function () {
+    c.bundle("core", function (b) {
         
-        javascript(function () {
-            js(Path.join(baseJsDir, "core.js"));
+        b.javascript(function () {
+            b.js(Path.join(baseJsDir, "core.js"));
         });
         
-        stylesheet(function () {
-            css(Path.join(baseCssDir, "core.css"));
+        b.stylesheet(function () {
+            b.css(Path.join(baseCssDir, "core.css"));
         });
         
     });
    
-    bundle("sub-module", function () {
-        include("core");
+    c.bundle("sub-module", function (b) {
+        b.include("core");
         
-        js(Path.join(baseJsDir, "sub-module.js"));
-        css(Path.join(baseCssDir, "sub-module.css"));
+        b.js(Path.join(baseJsDir, "sub-module.js"));
+        b.css(Path.join(baseCssDir, "sub-module.css"));
         
     });
 });
