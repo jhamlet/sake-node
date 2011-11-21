@@ -1,0 +1,4 @@
+{
+    "name": "parser",
+    "main": "./parser.js"
+}
