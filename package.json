@@ -1,6 +1,6 @@
 {   
     "name": "sake",
-    "description": "Sake is a Rake-like application for managing builds and for Stitching JavaScript, CSS, HTML, and other sundry files for web development.",
+    "description": "A Rake-like application for managing builds and for Stitching JavaScript, CSS, HTML, and other sundry files together for web development.",
     "version": "0.0.1",
     "keywords": ["packager", "css", "javascript", "html", "web", "development"],
     "main": "./lib/app.js",
