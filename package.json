@@ -1,11 +1,11 @@
 {   
-    "name": "stitch",
-    "description": "Compose JavaScript, CSS, HTML, and other sundry files for web development",
+    "name": "sake",
+    "description": "Sake is a Rake-like application for managing builds and for Stitching JavaScript, CSS, HTML, and other sundry files for web development.",
     "version": "0.0.1",
     "keywords": ["packager", "css", "javascript", "html", "web", "development"],
     "main": "./lib/app.js",
     "bin": {
-        "stitch": "./bin/stitch"
+        "sake": "./bin/sake"
     },
     "directories": {
         "lib": "lib"
@@ -13,13 +13,12 @@
     "dependencies": {
         "proteus":      ">=0.0.7",
         "commander":    ">=0.3.3",
-        "glob":         ">=2.10"
+        "glob":         ">=2.1.0"
     },
     "devDependencies": {
         "expresso": "0.9.2",
         "should": "*"
     },
     "engines": { "node": ">= 0.5.9" },
-    "preferGlobal": true,
-    "private": true
+    "preferGlobal": true
 }

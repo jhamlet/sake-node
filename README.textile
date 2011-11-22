@@ -1,1 +1,3 @@
-Stitch is an application for composing JavaScript, CSS, HTML, and other sundry files for web development.
+h1. Sake (Stitch and Make)
+
+Sake is a Rake-like application for managing builds and for Stitching JavaScript, CSS, HTML, and other sundry files for web development.
