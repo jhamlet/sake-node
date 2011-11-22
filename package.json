@@ -13,12 +13,19 @@
     "dependencies": {
         "proteus":      ">=0.0.7",
         "commander":    ">=0.3.3",
-        "glob":         ">=2.1.0"
+        "glob":         ">=2.1.0",
+        "strscan-parser": ">=0.0.1"
     },
     "devDependencies": {
         "expresso": "0.9.2",
         "should": "*"
     },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://github.com/jhamlet/sake-node/raw/master/LICENSE"
+        }
+    ],
     "repository": {
         "type": "git",
         "url": "http://github.com/jhamlet/sake-node.git"
