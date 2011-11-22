@@ -19,6 +19,10 @@
         "expresso": "0.9.2",
         "should": "*"
     },
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/jhamlet/sake-node.git"
+    },
     "engines": { "node": ">= 0.5.9" },
     "preferGlobal": true
 }
