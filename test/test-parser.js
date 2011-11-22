@@ -72,5 +72,60 @@ module.exports = {
         });
         
         found.should.eql(true);
+    },
+    
+    "If/Else": function () {
+        var src = "// @if (somevar)\n" +
+                  "condition is true content\n" +
+                  "// @else\n" +
+                  "condition else content\n" +
+                  "// @end\n",
+            parser,
+            found
+        ;
+        
+        parser = new Parser({
+            directives: [
+                ["ifelse", /\/\/\s*@if\s*/, function () {
+                    var cond, ifContent, elseContent;
+                    
+                    if (!this.scan(/\((\w+)\)\s*/)) {
+                        return;
+                    }
+                    
+                    this.mark();
+                    cond = this.getCapture(0);
+                    
+                    if (!this.scanUntil(/\/\/\s*@(else|end)\s*/)) {
+                        return;
+                    }
+                    
+                    ifContent = this.getFromMark();
+                    
+                    if (this.getCapture(0) === "end") {
+                        return [cond, ifContent];
+                    }
+                    
+                    this.mark();
+                    if (!this.scanUntil(/\/\/\s*@end\s*/)) {
+                        return;
+                    }
+                    
+                    elseContent = this.getFromMark();
+                    return [cond, ifContent, elseContent];
+                }]
+            ]
+        });
+        
+        parser.parse(src, {
+            ifelse: function (cond, ifContent, elseContent) {
+                cond.should.eql("somevar");
+                ifContent.should.eql("condition is true content\n");
+                elseContent.should.eql("condition else content\n");
+                found = true;
+            }
+        });
+        
+        found.should.eql(true);
     }
 };
