@@ -1,42 +1,76 @@
 
 var Parser  = require("../lib/parser"),
-    FS      = require("fs");
+    FS      = require("fs"),
+    should  = require("should")
+;
 
 module.exports = {
-    "Base": function () {
-        var test = new Parser({
+    "Basic StringScanner functionality": function () {
+        var parser = new Parser();
+        
+        parser.source = "A simple test.";
+        
+        parser.scan(/\w+/).should.eql("A");
+        parser.scan(/\s+/).should.eql(" ");
+        parser.scan(/simple/).should.eql("simple");
+        parser.scan(/[\s\w]+/).should.eql(" test");
+        
+    },
+    
+    "Simple directive finding": function () {
+        var count = 0,
+            src = "// @depend some/file/to/depend-on.js\n" +
+                  "// @depends some/other/fine.js\n",
+            parser = new Parser({
                 directives: [
-                    ["include", /@include\s+([^\s]+)/],
-                    ["depend", /@depends?\s+([^\s]+)/],
-                    ["conditionalDepend", /@depends?/, function () {
-                        var cond, path;
-                    
-                        if ((cond = this.scan(/\s+(\w+)/)) &&
-                            (path = this.scan(/\s+([^\s]+)/))
-                        ) {
-                            return [cond, path];
-                        }
-                    }],
-                    ["include", /@INCLUDE=([^@]+)@/ ]
-                ]
-            }),
-            file = "/Users/jhamlet/Sources/netflix/10FootUI/Apps/HTML/TV/trunk/src/plus.html"
+                    ["depend", /@depends?\s+([^\s]+)/]
+                ],
+                handlers: {
+                    depend: function (path) {
+                        path.should.eql([
+                            "some/file/to/depend-on.js",
+                            "some/other/fine.js"
+                        ][count]);
+                        count++;
+                    }
+                }
+            })
         ;
         
-        file = "Stitchfile";
+        parser.parse(src);
+    },
+    
+    "Using parsing functions for directives": function () {
+        var src = "some.var = stitch.include(\"some-bundle.js\");",
+            parser,
+            found
+        ;
         
-        test.parse(FS.readFileSync(file), {
-            include: function (path) {
-                console.log("Include: " + path);
-            },
-            depend: function (path) {
-                console.log("Depend: " + path);
-            },
-            conditionalDepend: function (cond, path) {
-                console.log("ConditionalDepend: " + cond + ", " + path);
+        parser = new Parser(src, {
+            directives: [
+                ["stitchInclude", /stitch\./, function () {
+                    var bundleName;
+                    
+                    this.preDirectiveMatch.should.eql("some.var = ");
+
+                    if (
+                        this.scan(/\w+\(/) && this.scan(/["']/) &&
+                        (bundleName = this.scan(/[\w\d\.\-]+/)) &&
+                        this.scan(/["']/) && this.scan(/\)/)
+                    ) {
+                        return bundleName;
+                    }
+                }]
+            ]
+        });
+        
+        parser.parse({
+            stitchInclude: function (bundle) {
+                bundle.should.eql("some-bundle.js");
+                found = true;
             }
         });
         
-        console.log(test);
+        found.should.eql(true);
     }
-}
+};
