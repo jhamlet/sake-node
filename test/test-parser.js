@@ -5,19 +5,35 @@ var Parser  = require("../lib/parser"),
 module.exports = {
     "Base": function () {
         var test = new Parser({
-            directives: [
-                ["include", /include/, function () {
-                    console.log(this.preDirectiveMatch);
-                    return true;
-                }],
-                ["depend", /@/, function () { return true; } ],
-                ["include", /@/, function () { return true; } ]
-            ]
-        });
+                directives: [
+                    ["include", /@include\s+([^\s]+)/],
+                    ["depend", /@depends?\s+([^\s]+)/],
+                    ["conditionalDepend", /@depends?/, function () {
+                        var cond, path;
+                    
+                        if ((cond = this.scan(/\s+(\w+)/)) &&
+                            (path = this.scan(/\s+([^\s]+)/))
+                        ) {
+                            return [cond, path];
+                        }
+                    }],
+                    ["include", /@INCLUDE=([^@]+)@/ ]
+                ]
+            }),
+            file = "/Users/jhamlet/Sources/netflix/10FootUI/Apps/HTML/TV/trunk/src/plus.html"
+        ;
         
-        test.parse(FS.readFileSync("Stitchfile"), {
-            include: function () {
-                console.log(arguments);
+        file = "Stitchfile";
+        
+        test.parse(FS.readFileSync(file), {
+            include: function (path) {
+                console.log("Include: " + path);
+            },
+            depend: function (path) {
+                console.log("Depend: " + path);
+            },
+            conditionalDepend: function (cond, path) {
+                console.log("ConditionalDepend: " + cond + ", " + path);
             }
         });
         

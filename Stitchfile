@@ -1,3 +1,6 @@
+// @depend some/path/to/depend-on.js
+// @depend true path/to/depend-on-if-true.js
+
 var Path = require("path");
 
 directory("tmp/html");
@@ -28,6 +31,8 @@ task("three", "two", function (t) {
     // });
     sh("ls -al");
 });
+
+// @include path/to/include/file.js
 
 include("test/other-config.js");
 
