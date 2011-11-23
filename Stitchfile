@@ -6,16 +6,13 @@ var Path = require("path");
 directory("tmp/html");
 
 description("Description for task one");
-task("one", "tmp/html", function (t) {
+file("tmp/html/jquery.min.js", ["tmp/html"], function (t) {
     console.log(t.name);
-    sh("curl -s 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js' > tmp/html/jquery.min.js");
-    // sh("sleep 1; ls -al ./lib", function (txt) {
-    //     console.log(txt);
-    // });
+    sh("curl -s 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js' > " + t.name);
 });
 
 description("Description for task two");
-task("two", "one", function (t) {
+task("two", "tmp/html/jquery.min.js", function (t) {
     console.log(t.name);
     // sh("sleep 1; ls -al ./test", function (txt) {
     //     console.log(txt);
@@ -29,7 +26,9 @@ task("three", "two", function (t) {
     // sh("sleep 1; ls -al ./examples", function (txt) {
     //     console.log(txt);
     // });
-    sh("ls -al");
+    stitch.sh("ls -al", function (txt) {
+        console.log(txt);
+    });
 });
 
 // @include path/to/include/file.js
@@ -75,5 +74,7 @@ configure("other", function (cfg) {
     
 });
 
+Task.get("three").on("complete", function (t) {
+    console.log(t.name + " complete");
+});
 Task.invoke("three", "foo");
-
