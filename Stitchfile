@@ -74,7 +74,7 @@ configure("other", function (cfg) {
     
 });
 
-Task.get("three").on("complete", function (t) {
-    console.log(t.name + " complete");
-});
-Task.invoke("three", "foo");
+// Task.get("three").on("complete", function (t) {
+//     console.log(t.name + " complete");
+// });
+// Task.invoke("three", "foo");
