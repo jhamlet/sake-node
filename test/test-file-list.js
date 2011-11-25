@@ -9,7 +9,7 @@ module.exports = {
         var fl = new FileList();
         
         should.exist(fl);
-        fl.should.be.a("function");
+        fl.should.be.instanceof(FileList);
     },
     
     "Include Glob": function () {
