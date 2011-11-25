@@ -57,5 +57,11 @@ module.exports = {
         var fl = new FileList("test/*");
         
         fl.items.should.not.contain("test/sub-folder/");
+    },
+    
+    "Trap non-existant files": function () {
+        var fl = new FileList("test/*");
+        fl.include("test/test-fake-directory-name/");
+        fl.items.should.not.contain("test/test-fake-directory-name/");
     }
 };
