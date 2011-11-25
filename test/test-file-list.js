@@ -28,6 +28,8 @@ module.exports = {
         
         fl.items.should.contain("test/other-config.js");
         fl.items.should.contain("test/sample.js");
+        
+        fl.items.should.not.contain("test/test-stitch.js");
     },
     
     "Exclude RegExp": function () {
