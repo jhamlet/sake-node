@@ -5,7 +5,7 @@ var should = require("should"),
 
 module.exports = {
     "Exists": function () {
-
+    
         var fl = new FileList();
         
         should.exist(fl);
@@ -43,13 +43,19 @@ module.exports = {
     "Returned items is not internal items": function () {
         var fl = new FileList(),
             ret;
-
+    
         fl.include("test/*.js");
         
         ret = fl.sort(function (a, b) {
             return a < b;
         });
-
+    
         ret.should.not.eql(fl.__items__);
+    },
+    
+    "Automatically exclude directories": function () {
+        var fl = new FileList("test/*");
+        
+        fl.items.should.not.contain("test/sub-folder/");
     }
 };
