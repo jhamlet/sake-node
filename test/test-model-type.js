@@ -10,8 +10,8 @@ module.exports = {
         
         type.name.should.eql("javascript");
         type.mime.should.eql("text/javascript");
-        type.extensions.should.be.an.instanceof(Array);
-        type.extensions.should.contain("js");
+        type.aliases.should.be.an.instanceof(Array);
+        type.extension.should.eql("js");
     },
     
     "Look up by extension": function () {
@@ -20,7 +20,7 @@ module.exports = {
         
         type.name.should.eql("stylesheet");
         type.mime.should.eql("text/stylesheet");
-        type.extensions.should.contain("css");
+        type.extension.should.eql("css");
     },
     
     "From path": function () {
@@ -30,25 +30,24 @@ module.exports = {
 
         type.name.should.eql("javascript");
         type.mime.should.eql("text/javascript");
-        type.extensions.should.be.an.instanceof(Array);
-        type.extensions.should.contain("js");
+        type.aliases.should.be.an.instanceof(Array);
+        type.extension.should.eql("js");
 
         type = TypeModel.fromPath("path-to-file.css");
 
         type.name.should.eql("stylesheet");
         type.mime.should.eql("text/stylesheet");
-        type.extensions.should.be.an.instanceof(Array);
-        type.extensions.should.contain("css");
+        type.aliases.should.be.an.instanceof(Array);
+        type.extension.should.eql("css");
         
-        type = new TypeModel("text/stylesheet", {
-            extensions: ["scss"]
-        });
+        type = new TypeModel("text/stylesheet", "scss");
 
         type.should.eql(TypeModel.getByMime("text/stylesheet"));
         
         type.name.should.eql("stylesheet");
         type.mime.should.eql("text/stylesheet");
-        type.extensions.should.be.an.instanceof(Array);
-        type.extensions.should.contain("scss");
+        type.aliases.should.be.an.instanceof(Array);
+        type.extension.should.eql("css");
+        type.aliases.should.contain("scss");
     }
 };
