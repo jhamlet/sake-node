@@ -1,23 +1,12 @@
 
-var should = require("should"),
-    TypeModel = require("../lib/model/type")
+var should    = require("should"),
+    TypeModel = require("../lib/types")
 ;
 
 module.exports = {
     
     "Basic test": function () {
-        var type = new TypeModel("javascript", "text/javascript", "js");
-
-        type.name.should.eql("javascript");
-        type.mime.should.eql("text/javascript");
-        type.extensions.should.be.an.instanceof(Array);
-        type.extensions.should.contain("js");
-        
-        type.destroy();
-    },
-    
-    "Mime only test": function () {
-        var type = new TypeModel("text/javascript", "js");
+        var type = TypeModel.get("text/javascript");
         
         type.name.should.eql("javascript");
         type.mime.should.eql("text/javascript");
@@ -27,11 +16,7 @@ module.exports = {
     
     "Look up by extension": function () {
         var type;
-        
-        new TypeModel("text/stylesheet", "css");
-        
         type = TypeModel.getByExtension("css");
-        should.exist(type);
         
         type.name.should.eql("stylesheet");
         type.mime.should.eql("text/stylesheet");
@@ -43,7 +28,6 @@ module.exports = {
         
         type = TypeModel.fromPath("path-to-file.js");
 
-        should.exist(type);
         type.name.should.eql("javascript");
         type.mime.should.eql("text/javascript");
         type.extensions.should.be.an.instanceof(Array);
@@ -51,19 +35,17 @@ module.exports = {
 
         type = TypeModel.fromPath("path-to-file.css");
 
-        should.exist(type);
         type.name.should.eql("stylesheet");
         type.mime.should.eql("text/stylesheet");
         type.extensions.should.be.an.instanceof(Array);
         type.extensions.should.contain("css");
         
-        new TypeModel("stylesheet", "text/stylesheet", "scss");
-
-        type = TypeModel.fromPath("path-to-file.scss");
+        type = new TypeModel("text/stylesheet", {
+            extensions: ["scss"]
+        });
 
         type.should.eql(TypeModel.getByMime("text/stylesheet"));
         
-        should.exist(type);
         type.name.should.eql("stylesheet");
         type.mime.should.eql("text/stylesheet");
         type.extensions.should.be.an.instanceof(Array);
