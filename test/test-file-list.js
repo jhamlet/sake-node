@@ -1,5 +1,6 @@
 
-var should = require("should"),
+var should   = require("should"),
+    FS       = require("fs"),
     FileList = require("../lib/file-list"),
     Task     = require("../lib/model/task"),
     FileTask = require("../lib/model/task/file-task")
@@ -58,14 +59,16 @@ module.exports = {
     },
     
     "Automatically exclude directories": function () {
-        var fl = new FileList("test/*");
+        var fl = new FileList("./**/*");
         
-        fl.items.should.not.contain("test/sub-folder/");
+        fl.items.forEach(function (path) {
+            FS.statSync(path).isDirectory().should.eql(false);
+        });
     },
     
     "Trap non-existant files": function () {
         var fl = new FileList("test/*");
-        fl.include("test/test-fake-directory-name/");
+        fl.include("test/test-fake-name");
         fl.items.should.not.contain("test/test-fake-directory-name/");
     },
     
@@ -78,10 +81,9 @@ module.exports = {
         task = new FileTask("test.txt", fl, function (t) {
             t.prerequisites.forEach(function (p) {
                 var preq = Task.get(p);
-                // console.log(preq.name + " > " + preq.isNeeded);
-            })
+                should.not.exist(preq.name.match(/(model|app|driver|tasks)/));
+            });
         });
-        
         
         task.invoke();
     }
