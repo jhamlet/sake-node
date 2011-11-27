@@ -1,6 +1,8 @@
 
 var should = require("should"),
-    FileList = require("../lib/file-list")
+    FileList = require("../lib/file-list"),
+    Task     = require("../lib/model/task"),
+    FileTask = require("../lib/model/task/file-task")
 ;
 
 module.exports = {
@@ -65,5 +67,22 @@ module.exports = {
         var fl = new FileList("test/*");
         fl.include("test/test-fake-directory-name/");
         fl.items.should.not.contain("test/test-fake-directory-name/");
+    },
+    
+    "FileList expands into task dependencies": function () {
+        var fl = new FileList("test/test-*"),
+            task;
+        
+        fl.exclude(/model/, /app/, /driver/, /tasks/);
+        
+        task = new FileTask("test.txt", fl, function (t) {
+            t.prerequisites.forEach(function (p) {
+                var preq = Task.get(p);
+                console.log(preq.name + " > " + preq.isNeeded);
+            })
+        });
+        
+        
+        task.invoke();
     }
 };
