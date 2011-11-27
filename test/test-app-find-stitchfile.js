@@ -8,6 +8,5 @@ module.exports = {
     "Find Stitchfile": function () {
         var path = stitch.stitchfileLocation();
         should.exist(path);
-        console.log(path);
     }
 }
