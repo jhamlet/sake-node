@@ -78,7 +78,7 @@ module.exports = {
         task = new FileTask("test.txt", fl, function (t) {
             t.prerequisites.forEach(function (p) {
                 var preq = Task.get(p);
-                console.log(preq.name + " > " + preq.isNeeded);
+                // console.log(preq.name + " > " + preq.isNeeded);
             })
         });
         
