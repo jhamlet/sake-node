@@ -1,4 +1,4 @@
 
-configure(function () {
+stitch(function () {
     var other_paths = "./foo/path";
 });

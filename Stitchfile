@@ -35,7 +35,7 @@ task("three", "two", function (t) {
 
 include("test/other-config.js");
 
-configure(function (cfg) {
+stitch(function (cfg) {
     cfg.filename_format = "${bundle.name}-${date.getTime()}.${type.extension}";
     
     cfg.bundle("core", function (core) {
@@ -64,7 +64,7 @@ configure(function (cfg) {
     });
 });
 
-configure("other", function (cfg) {
+stitch("other", function (cfg) {
     
     cfg.bundle("other-mod", function (mod) {
         

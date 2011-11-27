@@ -1,7 +1,7 @@
 
 var Path = require("path");
 
-configure(function (c) {
+stitch(function (c) {
     
     var srcDir      = "src",
         baseJsDir   = Path.join(srcDir, "js"),
