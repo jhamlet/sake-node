@@ -37,8 +37,8 @@ task("default", function (t) {
 stitch(function (cfg) {
     cfg.bundle("core", function (core) {
         core.insert("js", "This would be some javascript for core.");
-        core.fetch("js", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js");
         core.exec("js", "ls -al");
+        core.fetch("js", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js");
         // ["file-one.js", "file-two.js"].forEach(function (p) {
         //     core.file("js", p);
         // });
