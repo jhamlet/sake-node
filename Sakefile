@@ -36,6 +36,7 @@ task("default", function (t) {
 // 
 stitch(function (cfg) {
     cfg.bundle("core", function (core) {
+        log("Hello World");
         core.insert("js", "This would be some javascript for core.");
         // core.exec("js", "ls -al");
         // core.fetch("js", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js");
