@@ -12,6 +12,7 @@ module.exports = {
         ;
         
         queue = new AsyncQueue(
+            this,
             function () {
                 queue.setAsync();
                 CP.exec(
@@ -51,7 +52,7 @@ module.exports = {
         
         queue.start();
         queue.on("done", function () {
-            console.log(results.join(" "));
+            // console.log(results);
             results.join(" ").should.eql("One Two Three Four Five");
         });
     },
@@ -60,6 +61,7 @@ module.exports = {
         var queue;
         
         queue = new AsyncQueue(
+            this,
             function () {
                 queue.setAsync(1000);
                 CP.exec("sleep 2; echo \"One\"", function () {
@@ -70,7 +72,7 @@ module.exports = {
         
         queue.start();
         queue.on("timeout", function (q, fn) {
-            console.log("timed out");
+            // console.log("timed out");
         });
     }
 };
