@@ -2,7 +2,7 @@
 Path = require "path"
 pj = Path.join
 
-stitch ()->
+@stitch ()->
   srcDir      = "src"
   baseJsDir   = pj(srcDir, "js")
   baseCssDir  = pj(srcDir, "css")
