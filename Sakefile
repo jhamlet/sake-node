@@ -34,6 +34,7 @@ task("default", function (t) {
 
 // include("test/other-config.js");
 // 
+
 stitch(function (cfg) {
     cfg.bundle("core", function (core) {
         log("Hello World");
