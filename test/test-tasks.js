@@ -14,7 +14,7 @@ module.exports = {
         Task.should.be.a("function");
     },
     
-    "Simple Test": function () {
+    "Simple Test": function (beforeExit, assert) {
         var obj = {};
         
         new Task("core", function (t) {
@@ -30,12 +30,13 @@ module.exports = {
 
         Task.invoke("sub");
         
-        obj.core.should.eql(true);
-        obj.sub.should.eql(true);
-        
-        Task.get("sub").alreadyRun.should.eql(true);
-        Task.get("core").alreadyRun.should.eql(true);
-        
+        beforeExit(function () {
+            obj.core.should.eql(true);
+            obj.sub.should.eql(true);
+
+            Task.get("sub").alreadyRun.should.eql(true);
+            Task.get("core").alreadyRun.should.eql(true);
+        });
     },
     
     "Instance of Task": function () {
