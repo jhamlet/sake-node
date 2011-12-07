@@ -1,0 +1,46 @@
+
+bundle: 
+
+file[read|add|load]: 
+    bundle.addPrerequisite(FileTask)
+
+insert: 
+
+exec:
+
+fetch:
+
+
+
+
+"weave-[bundle.name].[type.extension]" -> ["/tmp/[bundle.name].[type.extension]"]
+"[bundle.name].[type.extension]" -> ["weave-[bundle.name].[type.extension]"]
+
+
+
+
+weave -> weave-js -> "[bundle.name].[type.extension]" -> "/tmp/[bundle.name].[type.extension]", "weave-[bundle.name].[type.extension]"
+
+
+
+
+# (x)-> means 'run/invoke'
+# -> means 'depends on'
+
+"[bundle.name]" (x)-> "[mode]-[bundle.name].[type.extensions]"
+
+"weave-[bundle.name].[type.extensions]" -> ["/tmp/[bundle.name].[type.extension]"]
+
+["/tmp/[bundle.name].[type.extension]"] (x)-> cat all prereqs into temp file
+
+"weave-[bundle.name].[type.extensions]" (x)-> append tmp file content to ctx
+
+
+"trace-[bundle.name].[type.extension]" -> [deps...]
+
+
+
+
+
+"[bundle.name]" -> ["/tmp/[bundle.name].[type.extension]"]
+"/tmp/[bundle.name].[type.extension]" (x)-> "[mode]-[bundle.name].[type.extensions]"

@@ -20,7 +20,7 @@ task "default", (t)->
   console.log t.name
 
 stitch ()->
-  @bundle "core", ()->
+  @bundle "core", ()-> 
     log "Hello World"
 
     @js ()->
