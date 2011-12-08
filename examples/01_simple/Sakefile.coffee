@@ -18,4 +18,6 @@ pj = Path.join
     @include "core"
     
     @js   pj(baseJsDir, "sub-module.js")
+    @js   pj(baseJsDir, "sub-module-2.js")
     @css  pj(baseCssDir, "sub-module.css")
+    @css  pj(baseCssDir, "sub-module-2.css")

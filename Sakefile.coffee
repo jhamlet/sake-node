@@ -4,13 +4,13 @@ Path = require "path"
 directory "tmp/html"
 
 description "Description for task one"
-file "tmp/html/jquery.min.js", ["tmp/html"], (x)->
+file "tmp/html/jquery.min.js", ["tmp/html"], (t)->
   console.log(t.name);
+  sh "cat \"hello jquery\" > tmp/html/jquery.min.js"
 
 description "Description for task two"
-task "two", "tmp/html/jquery.min.js", (t)->
+task "two", ["tmp/html/jquery.min.js"], (t)->
   console.log t.name
-  sh "touch tmp/html/jquery.min.js"
 
 description "Description for task three"
 task "three", "two", (t)->
