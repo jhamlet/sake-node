@@ -1,5 +1,5 @@
-SAKÉ -- JavaScript Rake with some _Stitch_ing
-=============================================
+SAKÉ -- A _Stitch_-able JavaScript R_ake_
+=======================================
 
 This package contains **Saké**, a JavaScript build program that runs in node with capabilities similar to ruby's Rake, and with some extra _**Stitch**ing_ tasks for building JavaScript, CSS, HTML, and other sundry files for web development.
 
@@ -53,8 +53,8 @@ The remainder of this documentation will assume that we are calling the methods 
 `[task|file|directory](taskname, [prerequisites], [action]);`
 
 *   `taskname` is a `string` naming the task
-*   `prerequisites` is an _optional_ array of tasks, FileLists, or functions that return a task name, an array, or a FileList
-*   `action` is an _optional_ function
+*   `prerequisites` is an _optional_ array of task names, a FileList, or functions that return a task name, an array, or a FileList. You can also pass a FileList in place of the array.
+*   `action` is an _optional_ function that will be called when the task is invoked.
 *   `returns` the Task instance
 
 If a task is already defined, it will be augmented by whatever is passed. So, this:
@@ -70,17 +70,17 @@ Would result in a task "othertask" with no prerequisites, and no action, and a t
 
 #### File Tasks
 
-File tasks are created with the (appropriately named) `file` method. File tasks, however, are only triggered to run their actions if the file path for the task name doesn't exits, or its modification time is later than all of its prerequisites.
+File tasks are created with the (appropriately named) `file` method. File tasks, however, are only triggered to run their actions if the file path for the task name doesn't exits, or its modification time is earlier than any of its prerequisites.
 
 
 #### Directory Tasks
 
-Directory tasks, created with the `directory` method are tasks that will only be called if they do not exist. They can have prerequisites and actions also.
+Directory tasks, created with the `directory` method are tasks that will only be called if they do not exist. The named directory will be created on invoking. They can have prerequisites and actions also.
 
 
 ### Asynchronous Tasks
 
-In Saké all tasks are assumed to be *synchronous*. However, many things in node require asynchronous callbacks. So, you can indicate that a task is asynchronous by calling the tasks's, or the global `Task` class', `startAsyc` method when starting the task ,and the `clearAsync` method when it is done.
+In Saké all tasks are assumed to be *synchronous*. However, many things in node require *asynchronous* callbacks. You can indicate that a task action is asynchronous by calling the tasks's, or the global `Task` class', `startAsyc` method when starting the task action ,and the `clearAsync` method when it is complete. i.e:
 
     task("asynctask", function (t) {
         t.startAsync(); // or, Task.startAsync()
