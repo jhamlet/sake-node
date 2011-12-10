@@ -1,3 +1,0 @@
-h1. Saké (Stitch and Rake)
-
-Saké is a Rake-like application for managing builds and for _Stitching_ JavaScript, CSS, HTML, and other sundry files for web development.
