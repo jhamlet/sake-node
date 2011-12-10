@@ -5,19 +5,24 @@ directory "tmp/html"
 
 description "Description for task one"
 file "tmp/html/jquery.min.js", ["tmp/html"], (t)->
+  t.startAsync();
   console.log(t.name);
-  sh "cat \"hello jquery\" > tmp/html/jquery.min.js"
+  # write t.name, "hello jquery\n"
+  sh "echo \"hello jquery\" > " + t.name, ()->
+    t.clearAsync();
 
 description "Description for task two"
 task "two", ["tmp/html/jquery.min.js"], (t)->
   console.log t.name
 
 description "Description for task three"
-task "three", "two", (t)->
+task "three", ["two"], (t)->
   console.log t.name
 
 task "default", (t)->
   console.log t.name
+
+CLEAN.include "tmp"
 
 stitch ()->
   @bundle "core", ()-> 
