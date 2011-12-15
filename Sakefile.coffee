@@ -19,9 +19,16 @@ description "Description for task three"
 task "three", ["two"], (t)->
   console.log t.name
 
-task "default", (t)->
-  console.log t.name
-
+async "test-async1", (t)->
+  sh "echo \"#{t.name}\"", (result)->
+    console.log chomp(result)
+    t.complete()
+    
+async "test-async2", ["test-async1"], (t)->
+  sh "echo \"#{t.name}\"", (result)->
+    console.log chomp(result)
+    t.complete()
+  
 CLEAN.include "tmp"
 
 stitch ()->
