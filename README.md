@@ -99,6 +99,57 @@ In Saké all tasks are assumed to be *synchronous*. However, many things in node
         );
     });
 
+Saké Utilities
+--------------
+
+    sh(cmd, success[, failure])
+
+Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function. This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
+
+    mkdir(dirpath[, mode])
+    
+    mkdir_p(dirpath[, mode])
+    
+Create the `dirpath` directory, if it doesn't already exist. `mkdir_p` will create all intermediate directories as needed.
+    
+    rm(path[, path1, ..., pathN])
+    
+    rm_rf(path[, path1, ..., pathN])
+    
+Remove one or more paths from the file system. `rm_rf` will remove directories and their contents.
+    
+    cp(from, to)
+
+Copy a file from `from` path to `to` path.
+    
+    mv(from, to)
+
+Move a file from `from` path to `to` path.
+    
+    ln(from, to)
+
+Create a hard link from `from` path to `to` path.
+    
+    ln_s(from, to)
+
+Create a symlink from `from` path to `to` path.
+    
+    cat(path [, path1, ..., pathN])
+
+Synchronously read all supplied paths and return their contents as a string. If an argument is an `Array` it will be expanded and those paths will be read.
+    
+    read(path [, enc])
+
+Synchronously read the supplied file path. Returns a `buffer`, or a `string` if `enc` is given.
+    
+    write(path, data [, enc])
+
+Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given.
+
+    chomp(text)
+
+Remove all trailing newline characters and return the resulting string.
+
 
 Stitch Usage
 ------------
