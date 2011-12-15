@@ -31,7 +31,7 @@ stitch ()->
     @js ()->
       @insert "This would be some javascript for core."
       @exec   "ls -al"
-      @fetch  "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"
+      # @fetch  "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"
 
     @stylesheet ()->
        @insert "some styles for core"
@@ -39,7 +39,7 @@ stitch ()->
   @bundle "sub-module", ()->
      @include "core"
      
-     @insert "js", "Some javascript for sub-module"
+     @insert "js", "Some javascript for sub-module to add to core"
      
      @stylesheet ()->
        @insert "some styles for sub-module"
