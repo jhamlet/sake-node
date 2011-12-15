@@ -1,7 +1,9 @@
-SAKÉ -- A _Stitch_-able JavaScript R_ake_
-=======================================
+SAKÉ
+====
 
-This package contains **Saké**, a JavaScript build program that runs in node with capabilities similar to ruby's Rake, and with some extra _**Stitch**ing_ tasks for building JavaScript, CSS, HTML, and other sundry files for web development.
+**S**[titch from R]**ake**
+
+This package contains **Saké**, a JavaScript build program that runs in node with capabilities similar to ruby's Rake, and with some extra **Stitch** tasks for building JavaScript, CSS, HTML, and other sundry files for web development.
 
 Saké has the following features:
 
@@ -22,6 +24,7 @@ Installation
 Download and install with the following:
 
     npm install -g sake
+
 
 Saké Usage
 ----------
@@ -75,7 +78,7 @@ File tasks are created with the (appropriately named) `file` method. File tasks,
 
 #### Directory Tasks
 
-Directory tasks, created with the `directory` method are tasks that will only be called if they do not exist. The named directory will be created on invoking. They can have prerequisites and actions also.
+Directory tasks, created with the `directory` method are tasks that will only be called if they do not exist. The named directory (and any directories along the way) will be created on invoking the task. Directory tasks can have prerequisites and actions also.
 
 
 ### Asynchronous Tasks
@@ -92,4 +95,12 @@ In Saké all tasks are assumed to be *synchronous*. However, many things in node
             })
         );
     });
+
+
+Stitch Usage
+------------
+
+### Bundles
+
+### Types
 
