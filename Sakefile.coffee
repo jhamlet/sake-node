@@ -28,7 +28,7 @@ async "test-async2", ["test-async1"], (t)->
   sh "echo \"#{t.name}\"", (result)->
     console.log chomp(result)
     t.complete()
-  
+
 CLEAN.include "tmp"
 
 stitch ()->
