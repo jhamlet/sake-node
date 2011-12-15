@@ -8,12 +8,11 @@ This package contains **Saké**, a JavaScript build program that runs in node wi
 Saké has the following features:
 
 1.  Sakefiles (Saké’s version of Rakefiles) are completely defined in standard JavaScript (or CoffeeScript, for those who want an even more Rake-like feel).
-2.  Users can specify tasks with prerequisites.
-3.  Flexible FileLists that act like arrays but know about manipulating file names and paths.
-4.  Standard `clean` and `clobber` tasks
-5.  Handling of Asynchronous tasks.
-6.  Many utility methods for handling common build tasks (rm, rm\_rf, mkdir, mkdir\_p, sh, cat, etc...)
-7.  **Stitch** a set of utility methods that help build packages of JavaScript, CSS, HTML, etc...
+2.  Flexible FileLists that act like arrays but know about manipulating file names and paths.
+3.  Standard `clean` and `clobber` tasks
+4.  Handling of *Synchronous* and *Asynchronous* tasks.
+5.  Many utility methods for handling common build tasks (rm, rm\_rf, mkdir, mkdir\_p, sh, cat, etc...)
+6.  **Stitch** a set of utility methods that help build packages of JavaScript, CSS, HTML, etc...
 
 
 Installation
@@ -53,7 +52,7 @@ The remainder of this documentation will assume that we are calling the methods 
 
 ### Defining Tasks
 
-`[task|file|directory](taskname, [prerequisites], [action]);`
+`[task|file|directory|fileCreate](taskname, [prerequisites], [action]);`
 
 *   `taskname` is a `string` naming the task
 *   `prerequisites` is an _optional_ array of task names, a FileList, or functions that return a task name, an array, or a FileList. You can also pass a FileList in place of the array.
@@ -81,9 +80,13 @@ File tasks are created with the (appropriately named) `file` method. File tasks,
 Directory tasks, created with the `directory` method are tasks that will only be called if they do not exist. The named directory (and any directories along the way) will be created on invoking the task. Directory tasks can have prerequisites and actions also.
 
 
+#### File Create Tasks
+
+A file create task is a file task that when used as a dependency will be needed if, and only if, the file has not been created. Once created, it is not re-triggered if any of its dependencies are newer, nor does it trigger any rebuilds of tasks that depend on it whenever it is updated.
+
 ### Asynchronous Tasks
 
-In Saké all tasks are assumed to be *synchronous*. However, many things in node require *asynchronous* callbacks. You can indicate that a task action is asynchronous by calling the tasks's, or the global `Task` class', `startAsyc` method when starting the task action ,and the `clearAsync` method when it is complete. i.e:
+In Saké all tasks are assumed to be *synchronous*. However, many things in node require *asynchronous* callbacks. You can indicate that a task action is asynchronous by calling the tasks's, or the global `Task` class', `startAsyc` method when starting the task action, and the `clearAsync` method when it is complete. i.e:
 
     task("asynctask", function (t) {
         t.startAsync(); // or, Task.startAsync()
