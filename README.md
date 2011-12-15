@@ -90,14 +90,20 @@ In Saké all tasks are assumed to be *synchronous*. However, many things in node
 
     task("asynctask", function (t) {
         t.startAsync(); // or, Task.startAsync()
-        require("child_process").exec(
-            "some long running shell command",
-            function (err, stdout, stderr) {
-                // do stuff with arguments...
-                t.clearAsync(); // or, Task.clearAsync()
-            })
-        );
+        sh("some long running shell command", function (err, stdout, stderr) {
+            // do stuff...
+            t.clearAsync(); // or, Task.clearAsync()
+        });
     });
+    
+Alternatively, you can use the `async` method to define a task. This will automatically set the async flag. However, your task must still clear it when it is done. i.e:
+
+    async("longtask", function (t) {
+        sh("some long running shell command", function (err, stdout, stderr) {
+            t.clearAsync(); // or, Task.clearAsync()
+        });
+    });
+
 
 Saké Utilities
 --------------
