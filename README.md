@@ -72,17 +72,32 @@ Would result in a task "othertask" with no prerequisites, and no action, and a t
 
 #### File Tasks
 
-File tasks are created with the (appropriately named) `file` method. File tasks, however, are only triggered to run their actions if the file path for the task name doesn't exits, or its modification time is earlier than any of its prerequisites.
+File tasks are created with the (appropriately named) `file` method. File tasks, however, are only triggered if the file doesn't exist, or the modification time of any of its prerequisites is newer than itself.
+
+    file("path/to/some/file", function (t) {
+        cp("other/path", t.name);
+    });
+    
+The above task would only be triggered if `path/to/some/file` did not exist.
+
+The following:
+
+    file("combined/file/path", ["pathA", "pathB", "pathC"], function (t) {
+        write(t.name, cat(t.prerequisites), "utf8");
+    });
+
+would be triggered if `path/to/some/file` did not exist, or its modification time was earlier than any of its prerequisites.
 
 
 #### Directory Tasks
 
-Directory tasks, created with the `directory` method are tasks that will only be called if they do not exist. The named directory (and any directories along the way) will be created on invoking the task. Directory tasks can have prerequisites and actions also.
+Directory tasks, created with the `directory` method are tasks that will only be called if they do not exist. The named directory (and any directories along the way) will be created when the task is triggered. Directory tasks can have prerequisites and actions also.
 
 
 #### File Create Tasks
 
 A file create task is a file task that when used as a dependency will be needed if, and only if, the file has not been created. Once created, it is not re-triggered if any of its dependencies are newer, nor does it trigger any rebuilds of tasks that depend on it whenever it is updated.
+
 
 ### Asynchronous Tasks
 
@@ -103,6 +118,10 @@ Alternatively, you can use the `async` method to define a task. This will automa
             t.clearAsync(); // or, Task.clearAsync()
         });
     });
+
+File Lists
+----------
+
 
 
 Saké Utilities
@@ -148,9 +167,9 @@ Synchronously read all supplied paths and return their contents as a string. If 
 
 Synchronously read the supplied file path. Returns a `buffer`, or a `string` if `enc` is given.
     
-    write(path, data [, enc])
+    write(path, data [, enc, mode])
 
-Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given.
+Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
 
     chomp(text)
 
@@ -160,7 +179,7 @@ Remove all trailing newline characters and return the resulting string.
 Stitch Usage
 ------------
 
-### Bundles
-
 ### Types
+
+### Bundles
 
