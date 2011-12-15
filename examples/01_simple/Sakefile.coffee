@@ -7,6 +7,8 @@ pj = Path.join
   baseJsDir   = pj(srcDir, "js")
   baseCssDir  = pj(srcDir, "css")
   
+  @aliasType "text/stylesheet", "scss"
+
   @bundle "core", ()->
     @javascript ()->
       @add pj(baseJsDir, "core.js")
