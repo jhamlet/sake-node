@@ -42,31 +42,11 @@ module.exports = {
         fl.items.should.not.contain("test/sample.js");
     },
     
-    "Returned items is not internal items": function () {
-        var fl = new FileList(),
-            ret;
-    
-        fl.include("test/*.js");
-        
-        ret = fl.sort(function (a, b) {
-            return a < b;
-        });
-    
-        ret.should.not.eql(fl.__items__);
-    },
-    
-    // "Automatically exclude directories": function () {
-    //     var fl = new FileList("../**/*");
-    //     
-    //     fl.items.forEach(function (path) {
-    //         FS.statSync(path).isDirectory().should.eql(false);
-    //     });
-    // },
-    
     "Trap non-existant files": function () {
         var fl = new FileList("test/*");
         fl.include("test/test-fake-name");
-        fl.items.should.not.contain("test/test-fake-name/");
+        fl.existing().items.should.not.contain("test/test-fake-name");
+        fl.notExisting().items.should.contain("test/test-fake-name");
     },
     
     "FileList expands into task dependencies": function () {
@@ -86,5 +66,36 @@ module.exports = {
         });
         
         task.invoke();
+    },
+    
+    "Filtering FileList returns a cloned FileList": function () {
+        var origFl = new FileList("lib/**/*").exclude("lib/driver/*");
+        
+        origFl.grep(/model\//).should.not.equal(origFl);
+    },
+    
+    "Chaining FileList methods together": function () {
+        var origFl = new FileList("**/*"),
+            newList;
+        
+        origFl.exclude(/^(?!lib)/);
+        
+        newList = origFl.extension(".js").grep(/^lib\/(?!driver)/).items;
+        newList.forEach(function (f) {
+            f.should.match(/^lib/);
+        });
+    },
+    
+    "Clone a FileList": function () {
+        var origFl = new FileList().include("**/*"),
+            cloneFl
+        ;
+        
+        cloneFl = origFl.extension(".js").exclude(/^(?!lib)/);
+        
+        cloneFl.forEach(function (f) {
+            f.should.match(/^lib/);
+            f.should.match(/\.js$/);
+        });
     }
 };
