@@ -45,8 +45,8 @@ module.exports = {
     "Trap non-existant files": function () {
         var fl = new FileList("test/*");
         fl.include("test/test-fake-name");
-        fl.existing().items.should.not.contain("test/test-fake-name");
-        fl.notExisting().items.should.contain("test/test-fake-name");
+        fl.existing.items.should.not.contain("test/test-fake-name");
+        fl.notExisting.items.should.contain("test/test-fake-name");
     },
     
     "FileList expands into task dependencies": function () {
