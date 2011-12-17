@@ -117,21 +117,25 @@ A file create task is a file task that when used as a dependency will be needed 
 
 In Saké all tasks are assumed to be *synchronous*. However, many things in node require *asynchronous* callbacks. You can indicate that a task action is asynchronous by calling the tasks's, or the global `Task` class', `startAsyc` method when starting the task action, and the `clearAsync` method when it is complete. i.e:
 
-    task("asynctask", function (t) {
-        t.startAsync(); // or, Task.startAsync()
-        sh("some long running shell command", function (err, stdout, stderr) {
-            // do stuff...
-            t.clearAsync(); // or, Task.clearAsync()
-        });
+```js
+task("asynctask", function (t) {
+    t.startAsync(); // or, Task.startAsync()
+    sh("some long running shell command", function (err, stdout, stderr) {
+        // do stuff...
+        t.clearAsync(); // or, Task.clearAsync()
     });
-    
+});
+```
+
 Alternatively, you can use the `async` method to define a task. This will automatically set the async flag. However, your task must still clear it when it is done. i.e:
 
-    async("longtask", function (t) {
-        sh("some long running shell command", function (err, stdout, stderr) {
-            t.clearAsync(); // or, Task.clearAsync()
-        });
+```js
+async("longtask", function (t) {
+    sh("some long running shell command", function (err, stdout, stderr) {
+        t.clearAsync(); // or, Task.clearAsync()
     });
+});
+```
 
 File Lists
 ----------
@@ -141,52 +145,65 @@ File Lists
 Saké Utilities
 --------------
 
-    sh(cmd, success[, failure])
+```js
+sh(cmd, success[, failure])
+```
 
 Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function. This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
 
-    mkdir(dirpath[, mode])
-    
-    mkdir_p(dirpath[, mode])
-    
+```js
+mkdir(dirpath[, mode])
+
+mkdir_p(dirpath[, mode])
+```
 Create the `dirpath` directory, if it doesn't already exist. `mkdir_p` will create all intermediate directories as needed.
     
-    rm(path[, path1, ..., pathN])
-    
-    rm_rf(path[, path1, ..., pathN])
-    
+```js
+rm(path[, path1, ..., pathN])
+
+rm_rf(path[, path1, ..., pathN])
+```
 Remove one or more paths from the file system. `rm_rf` will remove directories and their contents.
     
-    cp(from, to)
-
+```js
+cp(from, to)
+```
 Copy a file from `from` path to `to` path.
     
-    mv(from, to)
-
+```js
+mv(from, to)
+```
 Move a file from `from` path to `to` path.
     
-    ln(from, to)
-
+```js
+ln(from, to)
+```
 Create a hard link from `from` path to `to` path.
     
-    ln_s(from, to)
+```js
+ln_s(from, to)
+```
 
 Create a symlink from `from` path to `to` path.
     
-    cat(path [, path1, ..., pathN])
-
+```js
+cat(path [, path1, ..., pathN])
+```
 Synchronously read all supplied paths and return their contents as a string. If an argument is an `Array` it will be expanded and those paths will be read.
     
-    read(path [, enc])
-
+```js
+read(path [, enc])
+```
 Synchronously read the supplied file path. Returns a `buffer`, or a `string` if `enc` is given.
     
-    write(path, data [, enc, mode])
-
+```js
+write(path, data [, enc, mode])
+```
 Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
 
-    chomp(text)
-
+```js
+chomp(text)
+```
 Remove all trailing newline characters and return the resulting string.
 
 
