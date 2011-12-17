@@ -21,12 +21,12 @@ task "three", ["two"], (t)->
 
 async "test-async1", (t)->
   sh "echo \"#{t.name}\"", (result)->
-    console.log chomp(result)
+    console.log result.replace(/\n+$/, "")
     t.complete()
     
 async "test-async2", ["test-async1"], (t)->
   sh "echo \"#{t.name}\"", (result)->
-    console.log chomp(result)
+    console.log result.replace(/\n+$/, "")
     t.complete()
 
 CLOBBER.include "tmp"
