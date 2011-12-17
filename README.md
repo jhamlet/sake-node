@@ -14,7 +14,6 @@ Saké has the following features:
 5.  Many utility methods for handling common build tasks (rm, rm_rf, mkdir, mkdir_p, sh, cat, etc...)
 6.  **Stitch** a set of utility methods that help build packages of JavaScript, CSS, HTML, etc...
 
-* * *
 
 Installation
 ------------
@@ -25,7 +24,6 @@ Download and install with the following:
 
     npm install -g sake
 
-* * *
 
 Saké Usage
 ----------
@@ -57,7 +55,6 @@ sake.task("taskname", ["prereq1", "prereq2"], function (t) {
 
 The remainder of this documentation will assume that we are calling the methods from within a `Sakefile`.
 
-* * *
 
 Defining Tasks
 --------------
@@ -113,7 +110,7 @@ would be triggered if `path/to/some/file` did not exist, or its modification tim
 
 ### Directory Tasks
 
-Directory tasks, created with the `directory` method are tasks that will only be called if they do not exist. A task will be created for the named directory (and for all directories along the way) with the action of creating the directory.
+Directory tasks, created with the `directory` method, are tasks that will only be called if they do not exist. A task will be created for the named directory (and for all directories along the way) with the action of creating the directory.
 
 Directory tasks do not take any `prerequisites` or an `action` when first defined, however, they may be augmented with such after they are created:
 
@@ -136,7 +133,6 @@ fileCreate("file/path/to/create.ext", ["pathA", "pathB"], function (t) {
 });
 ~~~
 
-* * *
 
 (A)Synchronicity and Tasks
 --------------------------
@@ -163,12 +159,10 @@ async("longtask", function (t) {
 });
 ~~~
 
-* * *
 
 File Lists
 ----------
 
-* * *
 
 Utility Functions
 -----------------
@@ -216,7 +210,6 @@ Synchronously read the supplied file path. Returns a `buffer`, or a `string` if 
 
 Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
 
-* * *
 
 Stitch Usage
 ------------
