@@ -30,37 +30,37 @@ Saké Usage
 
 Within a `Sakefile`, Saké's methods are exported to the global scope, so you can invoke them directly:
 
-```js
+~~~js
 task("taskname", ["prereq1", "prereq2"], function (t) {
     // task action...
 });
-```
+~~~
     
 or, the equivalent in a `Sakefile.coffee`:
 
-```js
+~~~js
 task "taskname", ["prereq1", "prereq2"], (t)->
     // task action...
-```
+~~~
 
 Within another node module you can `require("sake")` and access the methods on the exported object:
 
-```js
+~~~js
 var sake = require("sake");
     
 sake.task("taskname", ["prereq1", "prereq2"], function (t) {
     // task action...
 });
-```
+~~~
 
 The remainder of this documentation will assume that we are calling the methods from within a `Sakefile`.
 
 
 ### Defining Tasks
 
-```js
+~~~js
 [task|file|directory|fileCreate](taskname, [prerequisites], [action]);
-```
+~~~
 
 *   `taskname` is a `string` naming the task
 *   `prerequisites` is an _optional_ array of task names, a FileList, or functions that return a task name, an array, or a FileList. You can also pass a FileList in place of the array.
@@ -69,13 +69,13 @@ The remainder of this documentation will assume that we are calling the methods 
 
 If a task is already defined, it will be augmented by whatever is passed. So, this:
 
-```js
+~~~js
 task("othertask")
 task("one", ["othertask"])
 task("one", function (t) {
     //...
 });
-```
+~~~
 
 Would result in a task "othertask" with no prerequisites, and no action, and a task "one" with "othertask" as a prerequisite and the function as its first action.
 
@@ -84,23 +84,23 @@ Would result in a task "othertask" with no prerequisites, and no action, and a t
 
 File tasks are created with the (appropriately named) `file` method. File tasks, however, are only triggered if the file doesn't exist, or the modification time of any of its prerequisites is newer than itself.
 
-```js
+~~~js
 file("path/to/some/file", function (t) {
     cp("other/path", t.name);
 });
-```
+~~~
 
 The above task would only be triggered if `path/to/some/file` did not exist.
 
 The following:
 
-```js
+~~~js
 file("combined/file/path", ["pathA", "pathB", "pathC"], function (t) {
     write(t.name, cat(t.prerequisites), "utf8");
 });
-```
+~~~
 
-would be triggered if `path/to/some/file` did not exist, or its modification time was earlier than any of its prerequisites.
+would be triggered if `path/to/some/file` did not exist, or its modification time was earlier than any of its prerequisites (`pathA`, `pathB`, or  `pathC`).
 
 
 #### Directory Tasks
@@ -117,7 +117,7 @@ A file create task is a file task that when used as a dependency will be needed 
 
 In Saké all tasks are assumed to be *synchronous*. However, many things in node require *asynchronous* callbacks. You can indicate that a task action is asynchronous by calling the tasks's, or the global `Task` class', `startAsyc` method when starting the task action, and the `clearAsync` method when it is complete. i.e:
 
-```js
+~~~js
 task("asynctask", function (t) {
     t.startAsync(); // or, Task.startAsync()
     sh("some long running shell command", function (err, stdout, stderr) {
@@ -125,17 +125,17 @@ task("asynctask", function (t) {
         t.clearAsync(); // or, Task.clearAsync()
     });
 });
-```
+~~~
 
 Alternatively, you can use the `async` method to define a task. This will automatically set the async flag. However, your task must still clear it when it is done. i.e:
 
-```js
+~~~js
 async("longtask", function (t) {
     sh("some long running shell command", function (err, stdout, stderr) {
         t.clearAsync(); // or, Task.clearAsync()
     });
 });
-```
+~~~
 
 File Lists
 ----------
@@ -145,50 +145,50 @@ File Lists
 Saké Utilities
 --------------
 
-### sh(cmd, success[, failure])
+#### sh(cmd, success[, failure])
 
 Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function. This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
 
 
-### mkdir(dirpath[, mode])
-### mkdir_p(dirpath[, mode])
+#### mkdir(dirpath, mode="755")
+#### mkdir_p(dirpath, mode="755"])
 
 Create the `dirpath` directory, if it doesn't already exist. `mkdir_p` will create all intermediate directories as needed.
     
-### rm(path[, path1, ..., pathN])
-### rm_rf(path[, path1, ..., pathN])
+#### rm(path, [path1, ..., pathN])
+#### rm_rf(path, [path1, ..., pathN])
 
 Remove one or more paths from the file system. `rm_rf` will remove directories and their contents.
     
-### cp(from, to)
+#### cp(from, to)
 
 Copy a file from `from` path to `to` path.
     
-### mv(from, to)
+#### mv(from, to)
 
 Move a file from `from` path to `to` path.
     
-### ln(from, to)
+#### ln(from, to)
 
 Create a hard link from `from` path to `to` path.
     
-### ln_s(from, to)
+#### ln_s(from, to)
 
 Create a symlink from `from` path to `to` path.
     
-### cat(path [, path1, ..., pathN])
+#### cat(path, [path1, ..., pathN])
 
 Synchronously read all supplied paths and return their contents as a string. If an argument is an `Array` it will be expanded and those paths will be read.
     
-### read(path [, enc])
+#### read(path, [enc])
 
 Synchronously read the supplied file path. Returns a `buffer`, or a `string` if `enc` is given.
     
-### write(path, data [, enc, mode])
+#### write(path, data, [enc], mode="w")
 
 Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
 
-### chomp(text)
+#### chomp(text)
 
 Remove all trailing newline characters and return the resulting string.
 
