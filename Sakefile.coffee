@@ -29,7 +29,7 @@ async "test-async2", ["test-async1"], (t)->
     console.log chomp(result)
     t.complete()
 
-CLEAN.include "tmp"
+CLOBBER.include "tmp"
 
 stitch ()->
   @bundle "core", ()-> 
