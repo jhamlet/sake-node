@@ -145,65 +145,51 @@ File Lists
 Saké Utilities
 --------------
 
-```js
-sh(cmd, success[, failure])
-```
+### sh(cmd, success[, failure])
 
 Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function. This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
 
-```js
-mkdir(dirpath[, mode])
 
-mkdir_p(dirpath[, mode])
-```
+### mkdir(dirpath[, mode])
+### mkdir_p(dirpath[, mode])
+
 Create the `dirpath` directory, if it doesn't already exist. `mkdir_p` will create all intermediate directories as needed.
     
-```js
-rm(path[, path1, ..., pathN])
+### rm(path[, path1, ..., pathN])
+### rm_rf(path[, path1, ..., pathN])
 
-rm_rf(path[, path1, ..., pathN])
-```
 Remove one or more paths from the file system. `rm_rf` will remove directories and their contents.
     
-```js
-cp(from, to)
-```
+### cp(from, to)
+
 Copy a file from `from` path to `to` path.
     
-```js
-mv(from, to)
-```
+### mv(from, to)
+
 Move a file from `from` path to `to` path.
     
-```js
-ln(from, to)
-```
+### ln(from, to)
+
 Create a hard link from `from` path to `to` path.
     
-```js
-ln_s(from, to)
-```
+### ln_s(from, to)
 
 Create a symlink from `from` path to `to` path.
     
-```js
-cat(path [, path1, ..., pathN])
-```
+### cat(path [, path1, ..., pathN])
+
 Synchronously read all supplied paths and return their contents as a string. If an argument is an `Array` it will be expanded and those paths will be read.
     
-```js
-read(path [, enc])
-```
+### read(path [, enc])
+
 Synchronously read the supplied file path. Returns a `buffer`, or a `string` if `enc` is given.
     
-```js
-write(path, data [, enc, mode])
-```
+### write(path, data [, enc, mode])
+
 Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
 
-```js
-chomp(text)
-```
+### chomp(text)
+
 Remove all trailing newline characters and return the resulting string.
 
 
