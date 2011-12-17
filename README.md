@@ -30,29 +30,37 @@ Saké Usage
 
 Within a `Sakefile`, Saké's methods are exported to the global scope, so you can invoke them directly:
 
-    task("taskname", ["prereq1", "prereq2"], function (t) {
-        // task action...
-    });
+```js
+task("taskname", ["prereq1", "prereq2"], function (t) {
+    // task action...
+});
+```
     
 or, the equivalent in a `Sakefile.coffee`:
 
-    task "taskname", ["prereq1", "prereq2"], (t)->
-        // task action...
-    
+```js
+task "taskname", ["prereq1", "prereq2"], (t)->
+    // task action...
+```
+
 Within another node module you can `require("sake")` and access the methods on the exported object:
+
+```js
+var sake = require("sake");
     
-    var sake = require("sake");
-    
-    sake.task("taskname", ["prereq1", "prereq2"], function (t) {
-        // task action...
-    });
+sake.task("taskname", ["prereq1", "prereq2"], function (t) {
+    // task action...
+});
+```
 
 The remainder of this documentation will assume that we are calling the methods from within a `Sakefile`.
 
 
 ### Defining Tasks
 
-`[task|file|directory|fileCreate](taskname, [prerequisites], [action]);`
+```js
+[task|file|directory|fileCreate](taskname, [prerequisites], [action]);
+```
 
 *   `taskname` is a `string` naming the task
 *   `prerequisites` is an _optional_ array of task names, a FileList, or functions that return a task name, an array, or a FileList. You can also pass a FileList in place of the array.
@@ -61,11 +69,13 @@ The remainder of this documentation will assume that we are calling the methods 
 
 If a task is already defined, it will be augmented by whatever is passed. So, this:
 
-    task("othertask")
-    task("one", ["othertask"])
-    task("one", function (t) {
-        //...
-    });
+```js
+task("othertask")
+task("one", ["othertask"])
+task("one", function (t) {
+    //...
+});
+```
 
 Would result in a task "othertask" with no prerequisites, and no action, and a task "one" with "othertask" as a prerequisite and the function as its first action.
 
@@ -74,17 +84,21 @@ Would result in a task "othertask" with no prerequisites, and no action, and a t
 
 File tasks are created with the (appropriately named) `file` method. File tasks, however, are only triggered if the file doesn't exist, or the modification time of any of its prerequisites is newer than itself.
 
-    file("path/to/some/file", function (t) {
-        cp("other/path", t.name);
-    });
-    
+```js
+file("path/to/some/file", function (t) {
+    cp("other/path", t.name);
+});
+```
+
 The above task would only be triggered if `path/to/some/file` did not exist.
 
 The following:
 
-    file("combined/file/path", ["pathA", "pathB", "pathC"], function (t) {
-        write(t.name, cat(t.prerequisites), "utf8");
-    });
+```js
+file("combined/file/path", ["pathA", "pathB", "pathC"], function (t) {
+    write(t.name, cat(t.prerequisites), "utf8");
+});
+```
 
 would be triggered if `path/to/some/file` did not exist, or its modification time was earlier than any of its prerequisites.
 
