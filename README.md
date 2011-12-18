@@ -290,6 +290,38 @@ Alias for `#include`
 Stitch Usage
 ------------
 
+`stitch` provides various methods and core tasks to help define tasks that enable bundling of resources for web-development. (It's also where the **S** in **S**aké comes from.)
+
+### stitch([namespace], function)
+
+Define a stitch configuration. If `namespace` is omitted, it defaults to "default".
+
+The first argument to the `function` will be a reference to the current `stitch` driver; in addition, the `this` context of the function will be set to the stitch configuration driver also.
+
+~~~js
+stitch.aliasType("text/stylesheet", "scss");
+
+stitch(function (cfg) {
+    cfg.bundle("core", function (core) {
+        core.javascript(function () {
+            core.add("src/js/core.js");
+        });
+        
+        core.stylesheet(function () {
+            this.add("src/css/core.scss");
+            this.add("src/css/reset.scss");
+        });
+    });
+    
+    cfg.bundle("sub-module", function (sub) {
+        sub.include("core");
+        
+        this.js("src/js/sub-module.js");
+        this.scss("src/css/sub-module.scss");
+    });
+});
+~~~
+
 ### Types
 
 ### Bundles
