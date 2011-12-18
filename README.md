@@ -149,10 +149,10 @@ task("asynctask", function (t) {
 });
 ~~~
 
-Alternatively, you can use the `async` method to define a task. This will automatically set the async flag. However, your task must still clear it when it is done. i.e:
+Alternatively, you can use the `atask` method to define a task. This will automatically set the async flag. However, your task must still clear it when it is done. i.e:
 
 ~~~js
-async("longtask", function (t) {
+atask("longtask", function (t) {
     sh("some long running shell command", function (err, stdout, stderr) {
         t.clearAsync(); // or, Task.clearAsync()
     });
@@ -160,16 +160,16 @@ async("longtask", function (t) {
 ~~~
 
 
-File Lists
-----------
+Saké Utility Functions
+----------------------
 
-
-Utility Functions
------------------
+Saké defines a few utility functions to make life a little easier in an asynchronous world. Most of these are just wrappers for `node`'s File System (`require("fs")`) utility methods.
 
 ### sh(cmd, success[, failure])
 
-Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function. This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
+Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function.
+
+This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
 
 
 ### mkdir(dirpath, mode="755")
@@ -209,6 +209,82 @@ Synchronously read the supplied file path. Returns a `buffer`, or a `string` if 
 ### write(path, data, [enc], mode="w")
 
 Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
+
+
+File Lists
+----------
+
+FileLists are lists (an `Array`) of files.
+
+~~~js
+new FileList("*.scss");
+~~~
+
+Would contain all the files with a ".scss" extension in the top-level directory of your project.
+
+You can use FileLists pretty much like an `Array`. You can iterate them (with `forEach, filter, reduce`, etc...), `concat` them, `splice` them, and you get back a new FileList object.
+
+To add files, or glob patterns to them, use the `#include` method:
+
+~~~js
+var fl = new FileList("*.scss");
+fl.include("core.css", "reset.css", "*.css");
+~~~
+
+You can also `exlucude` files by Glob pattern, `Regular Expression` pattern, or by use of a `function` that takes the file path as an argument and returns a `truthy` value to exclude a file.
+
+~~~js
+// Exclude by RegExp
+fl.exclude(/^dev-.*.css/);
+
+// Exclude by Glob pattern
+fl.exclude("dev-*.css");
+
+// Exclude by function
+fl.exclude(function (path) {
+    return FS.statSync(path).mtime.getTime() < (Date.now() - 60 * 60 * 1000);
+});
+~~~
+
+To get to the actual items of the FileList, use the `#items` property, or the `#toArray` method, to get a plain array back. You can also use the `#get` or `#set` methods to retrieve or set an item.
+
+FileLists are *lazy*, in that the actual file paths are not determined from the include and exclude patterns until the individual items are requested. This allows you to define a FileList and incrementally add patterns to it in the Sakefile file. The FileList paths will not be resolved until the task that uses it as a prerequisite actually asks for the final paths.
+
+### FileList Utility Properties & Methods
+
+#### FileList#existing
+
+Will return all of the files that actually exist.
+
+#### FileList#notExisting
+
+Will return all of the files that do not exist.
+
+#### FileList#extension(ext)
+
+Returns all paths that match the given extension.
+
+~~~js
+fl.extension(".scss").forEach(function (path) {
+    //...
+});
+~~~
+
+#### FileList#grep(pattern)
+
+Get all the files that match the given `pattern`. `pattern` can be a plain `String`, a `Glob` pattern, a `RegExp`, or a `function`.
+
+#### FileList#clearExcludes()
+
+Clear all exclude patterns/functions.
+
+#### FileList#clearIncludes()
+
+Clear all include patterns.
+
+#### FileList#add()
+
+Alias for `#include`
 
 
 Stitch Usage
