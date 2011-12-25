@@ -165,13 +165,6 @@ Saké Utility Functions
 
 Saké defines a few utility functions to make life a little easier in an asynchronous world. Most of these are just wrappers for `node`'s File System (`require("fs")`) utility methods.
 
-### sh(cmd, success[, failure])
-
-Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function.
-
-This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
-
-
 ### mkdir(dirpath, mode="755")
 ### mkdir_p(dirpath, mode="755"])
 
@@ -209,6 +202,12 @@ Synchronously read the supplied file path. Returns a `buffer`, or a `string` if 
 ### write(path, data, [enc], mode="w")
 
 Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
+
+### sh(cmd, success, [failure])
+
+Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function.
+
+This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
 
 
 File Lists
@@ -296,7 +295,7 @@ Stitch Usage
 
 Define a stitch configuration. If `namespace` is omitted, it defaults to "default".
 
-The first argument to the `function` will be a reference to the current `stitch` driver; in addition, the `this` context of the function will be set to the stitch configuration driver also.
+The first argument to the `function` will be a reference to the current `stitch` driver; in addition, the `this` context of the function will be set to the stitch configuration driver.
 
 ~~~js
 stitch.aliasType("text/stylesheet", "scss");
