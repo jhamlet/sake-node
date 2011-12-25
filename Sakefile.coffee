@@ -7,9 +7,13 @@ description "Description for task one"
 file "tmp/html/jquery.min.js", ["tmp/html"], (t)->
   t.startAsync();
   console.log(t.name);
-  # write t.name, "hello jquery\n"
-  sh "echo \"hello jquery\" > " + t.name, ()->
-    t.clearAsync();
+  cmd =  "curl -s"
+  cmd += " \"http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js\""
+  cmd += " > #{t.name}"
+  sh cmd, ()->
+    t.clearAsync()
+  # sh "echo \"hello jquery\" > " + t.name, ()->
+  #   t.clearAsync();
 
 description "Description for task two"
 task "two", ["tmp/html/jquery.min.js"], (t)->
@@ -29,11 +33,12 @@ async "test-async2", ["test-async1"], (t)->
     console.log result.replace(/\n+$/, "")
     t.complete()
 
+CLEAN.include "tmp/html/jquery.min.js"
 CLOBBER.include "tmp"
 
 stitch ()->
-  @bundle "core", ()-> 
-    log "Hello World"
+  @bundle "core", ()->
+    @description = "The core package."
 
     @js ()->
       @insert "This would be some javascript for core."
