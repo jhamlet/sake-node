@@ -25,8 +25,36 @@ Download and install with the following:
     npm install -g sake
 
 
-Saké Usage
-----------
+Saké Command-Line Usage
+-----------------------
+
+~~~
+% sake [options] [task ...] [env=variable ...]
+~~~
+
+**Sake** will look within the current directory, and all parent directories, for the first `[sS]akefile(\.(js|coffee))?` it can find and parse it for task definitions and then invoke the task passed on the command-line. If no task is given, it will try to invoke the task named `default`.
+
+### Sake Command-Line Options
+
+~~~
+-f, --sakefile PATH        Specify PATH to Sakefile to run instead of searching for one.
+-T, --tasks                List tasks with descriptions
+-v, --verbose              Log message to standard output.
+-V, --version              Print the version of sake
+-h, --help                 Print this help information
+~~~
+
+### Stitch Specific Options ###
+
+~~~
+-o, --outfile PATH         Save Stitch output to file PATH.
+-F, --force                If outputing to a file, overwrite any existing file.
+-N, --no-minify            Set Stitch minification flag to false.
+--stitch-temp-dir [PATH]   Directory to use for temporary files
+~~~
+
+Sakefile Usage
+--------------
 
 Within a `Sakefile`, Saké's methods are exported to the global scope, so you can invoke them directly:
 
