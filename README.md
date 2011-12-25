@@ -32,26 +32,31 @@ Saké Command-Line Usage
 % sake [options] [task ...] [env=variable ...]
 ~~~
 
-**Sake** will look within the current directory, and all parent directories, for the first `[sS]akefile(\.(js|coffee))?` it can find and parse it for task definitions and then invoke the task passed on the command-line. If no task is given, it will try to invoke the task named `default`.
-
 ### Sake Command-Line Options
 
 ~~~
--f, --sakefile PATH        Specify PATH to Sakefile to run instead of searching for one.
--T, --tasks                List tasks with descriptions
--v, --verbose              Log message to standard output.
--V, --version              Print the version of sake
--h, --help                 Print this help information
+-f, --sakefile PATH      Specify PATH to Sakefile to run instead of searching for one.
+-T, --tasks              List tasks with descriptions and exit.
+-P, --prerequisites      List tasks and their prerequisites and exit.
+-d, --debug              Enable additional debugging output.
+-v, --verbose            Log messages to standard output.
+-V, --version            Print the version of sake and exit.
+-h, --help               Print this help information and exit.
 ~~~
 
 ### Stitch Specific Options ###
 
 ~~~
--o, --outfile PATH         Save Stitch output to file PATH.
--F, --force                If outputing to a file, overwrite any existing file.
--N, --no-minify            Set Stitch minification flag to false.
---stitch-temp-dir [PATH]   Directory to use for temporary files
+-o, --outfile PATH       Save Stitch output to file PATH.
+-F, --force              If outputing to a file, overwrite any existing file.
+-N, --no-minify          Set Stitch minification flag to false.
+--stitch-temp-dir PATH   Directory to use for temporary files
 ~~~
+
+**Sake** will look within the current directory, and then all parent directories from there, for the first `/^[sS]akefile(\.(js|coffee))?$/` it can find. Then it will parse it for task definitions and invoke the task passed on the command-line. If no task is given, it will try to invoke the task named `default`.
+
+If additional arguments in the form of `[VARIABLE_NAME]=[VALUE]` are given on the command-line, **Saké** will set an environment variable `VARIABLE_NAME` with its value the JSON parsed value of `VALUE` (or a plain string, if it fails to JSON parse cleanly). These will then be accessible through the node's `process.env[ironment]` namespace.
+
 
 Sakefile Usage
 --------------
