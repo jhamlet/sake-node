@@ -18,7 +18,7 @@ description "Build the jquery version."
 task "jquery", [jqueryPath]
 
 description "Description for task two"
-task "two", ["tmp/html/jquery.min.js"], (t)->
+task "two", [jqueryPath], (t)->
   console.log t.name
 
 description "Description for task three"
@@ -38,7 +38,6 @@ async "test-async2", ["test-async1"], (t)->
 jsFL = new FileList "lib/**/*.js"
 
 file "tmp/js/combined.js", ["tmp/js", jsFL], (t)->
-  t.startAsync()
   write t.name, cat(jsFL.items)
 
 desc "Sample task that uses a FileList to build a file"
