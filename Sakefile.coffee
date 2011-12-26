@@ -2,18 +2,20 @@
 Path = require "path"
 
 directory "tmp/html"
+directory "tmp/js"
 
-description "Description for task one"
-file "tmp/html/jquery.min.js", ["tmp/html"], (t)->
+jqueryPath = "tmp/html/jquery.min.js"
+file jqueryPath, ["tmp/html"], (t)->
   t.startAsync();
   console.log(t.name);
-  cmd =  "curl -s"
-  cmd += " \"http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js\""
-  cmd += " > #{t.name}"
-  sh cmd, ()->
+  url = "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"
+  sh "curl -s '#{url}' > #{t.name}", ()->
     t.clearAsync()
   # sh "echo \"hello jquery\" > " + t.name, ()->
   #   t.clearAsync();
+
+description "Build the jquery version."
+task "jquery", [jqueryPath]
 
 description "Description for task two"
 task "two", ["tmp/html/jquery.min.js"], (t)->
@@ -33,8 +35,19 @@ async "test-async2", ["test-async1"], (t)->
     console.log result.replace(/\n+$/, "")
     t.complete()
 
-CLEAN.include "tmp/html/jquery.min.js"
+jsFL = new FileList "lib/**/*.js"
+
+file "tmp/js/combined.js", ["tmp/js", jsFL], (t)->
+  t.startAsync()
+  write t.name, cat(jsFL.items)
+
+desc "Sample task that uses a FileList to build a file"
+task "test-filelist", ["tmp/js/combined.js"]
+
+CLEAN.include "tmp/html/jquery.min.js", "tmp/js/combined.js"
 CLOBBER.include "tmp"
+
+task "default", ["test-filelist", "three"]
 
 stitch ()->
   @bundle "core", ()->
