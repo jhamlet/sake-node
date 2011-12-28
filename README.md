@@ -286,15 +286,15 @@ FileLists are *lazy*, in that the actual file paths are not determined from the 
 
 #### FileList#existing
 
-Will return all of the files that actually exist.
+Will return a new `FileList` with all of the files that actually exist.
 
 #### FileList#notExisting
 
-Will return all of the files that do not exist.
+Will return a new `FileList` all of the files that do not exist.
 
 #### FileList#extension(ext)
 
-Returns all paths that match the given extension.
+Returns a new `FileList` with all paths that match the given extension.
 
 ~~~js
 fl.extension(".scss").forEach(function (path) {
@@ -304,7 +304,7 @@ fl.extension(".scss").forEach(function (path) {
 
 #### FileList#grep(pattern)
 
-Get all the files that match the given `pattern`. `pattern` can be a plain `String`, a `Glob` pattern, a `RegExp`, or a `function`.
+Get a `FileList` of all the files that match the given `pattern`. `pattern` can be a plain `String`, a `Glob` pattern, a `RegExp`, or a `function`.
 
 #### FileList#clearExcludes()
 
