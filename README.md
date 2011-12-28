@@ -170,7 +170,7 @@ fileCreate("file/path/to/create.ext", ["pathA", "pathB"], function (t) {
 (A)Synchronicity and Tasks
 --------------------------
 
-In Saké all tasks are assumed to be *synchronous*. However, many things in node require *asynchronous* callbacks. You can indicate that a task action is asynchronous by calling the tasks's, or the global `Task` class', `startAsyc` method when starting the task action, and the `clearAsync` method when it is complete. i.e:
+In Saké all task actions are assumed to be *synchronous*. However, many things in node require *asynchronous* callbacks. You can indicate that a task action is asynchronous by calling the tasks's, or the global `Task` class', `startAsyc` method when starting the task action, and the `clearAsync` method when it is complete. i.e:
 
 ~~~js
 task("asynctask", function (t) {
@@ -182,7 +182,7 @@ task("asynctask", function (t) {
 });
 ~~~
 
-Alternatively, you can use the `atask` method to define a task. This will automatically set the async flag. However, your task must still clear it when it is done. i.e:
+Alternatively, you can use the `atask` method to add an *asynchronous* task action. This will automatically set the async flag for that action. However, your task must still clear it when it is done. i.e:
 
 ~~~js
 atask("longtask", function (t) {
