@@ -9,7 +9,7 @@ file jqueryPath, ["tmp/html"], (t)->
   t.startAsync();
   console.log(t.name);
   url = "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"
-  sh "curl -s '#{url}' > #{t.name}", ()->
+  sh "curl -s '#{url}' > #{t.name}", ->
     t.clearAsync()
   # sh "echo \"hello jquery\" > " + t.name, ()->
   #   t.clearAsync();
@@ -48,22 +48,22 @@ CLOBBER.include "tmp"
 
 task "default", ["test-filelist", "three"]
 
-stitch ()->
-  @bundle "core", ()->
+stitch ->
+  @bundle "core", ->
     @description = "The core package."
 
-    @js ()->
+    @js ->
       @insert "This would be some javascript for core."
       @exec   "ls -al"
       # @fetch  "http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"
 
-    @stylesheet ()->
+    @stylesheet ->
        @insert "some styles for core"
    
-  @bundle "sub-module", ()->
+  @bundle "sub-module", ->
      @include "core"
      
      @insert "js", "Some javascript for sub-module to add to core"
      
-     @stylesheet ()->
+     @stylesheet ->
        @insert "some styles for sub-module"
