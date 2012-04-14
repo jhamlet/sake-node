@@ -32,6 +32,10 @@ Saké Command-Line Usage
 % sake [options] [task ...] [env=variable ...]
 ~~~
 
+**Saké** will look within the current directory, and all parent directories, for the first `/^[sS]akefile(\.(js|coffee))?$/` it can find, run that file, and then invoke the task passed on the command-line. If no task is given, it will try to invoke the task named `default`.
+
+If additional arguments in the form of `[VARIABLE_NAME]=[VALUE]` are given on the command-line, **Saké** will set an environment variable `VARIABLE_NAME` with its value the JSON parsed value of `VALUE` (or a plain string, if it fails to JSON parse cleanly). These will then be accessible through the node's `process.env[ironment]` namespace.
+
 ### Sake Command-Line Options
 
 ~~~
@@ -52,10 +56,6 @@ Saké Command-Line Usage
 -N, --no-minify          Set Stitch minification flag to false.
 --stitch-temp-dir PATH   Directory to use for temporary files
 ~~~
-
-**Sake** will look within the current directory, and then all parent directories from there, for the first `/^[sS]akefile(\.(js|coffee))?$/` it can find. Then it will parse it for task definitions and invoke the task passed on the command-line. If no task is given, it will try to invoke the task named `default`.
-
-If additional arguments in the form of `[VARIABLE_NAME]=[VALUE]` are given on the command-line, **Saké** will set an environment variable `VARIABLE_NAME` with its value the JSON parsed value of `VALUE` (or a plain string, if it fails to JSON parse cleanly). These will then be accessible through the node's `process.env[ironment]` namespace.
 
 
 Sakefile Usage
@@ -193,56 +193,6 @@ atask("longtask", function (t) {
 ~~~
 
 
-Saké Utility Functions
-----------------------
-
-Saké defines a few utility functions to make life a little easier in an asynchronous world. Most of these are just wrappers for `node`'s File System (`require("fs")`) utility methods.
-
-### mkdir(dirpath, mode="755")
-### mkdir_p(dirpath, mode="755"])
-
-Create the `dirpath` directory, if it doesn't already exist. `mkdir_p` will create all intermediate directories as needed.
-    
-### rm(path, [path1, ..., pathN])
-### rm_rf(path, [path1, ..., pathN])
-
-Remove one or more paths from the file system. `rm_rf` will remove directories and their contents.
-    
-### cp(from, to)
-
-Copy a file from `from` path to `to` path.
-    
-### mv(from, to)
-
-Move a file from `from` path to `to` path.
-    
-### ln(from, to)
-
-Create a hard link from `from` path to `to` path.
-    
-### ln_s(from, to)
-
-Create a symlink from `from` path to `to` path.
-    
-### cat(path, [path1, ..., pathN])
-
-Synchronously read all supplied paths and return their contents as a string. If an argument is an `Array` it will be expanded and those paths will be read.
-    
-### read(path, [enc])
-
-Synchronously read the supplied file path. Returns a `buffer`, or a `string` if `enc` is given.
-    
-### write(path, data, [enc], mode="w")
-
-Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
-
-### sh(cmd, success, [failure])
-
-Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function.
-
-This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
-
-
 File Lists
 ----------
 
@@ -267,7 +217,7 @@ You can also `exlucude` files by Glob pattern, `Regular Expression` pattern, or 
 
 ~~~js
 // Exclude by RegExp
-fl.exclude(/^dev-.*.css/);
+fl.exclude(/^dev-.*\.css/);
 
 // Exclude by Glob pattern
 fl.exclude("dev-*.css");
@@ -319,6 +269,56 @@ Clear all include patterns.
 Alias for `#include`
 
 
+Saké Utility Functions
+----------------------
+
+Saké defines a few utility functions to make life a little easier in an asynchronous world. Most of these are just wrappers for `node`'s File System (`require("fs")`) utility methods.
+
+### mkdir(dirpath, mode="755")
+### mkdir_p(dirpath, mode="755"])
+
+Create the `dirpath` directory, if it doesn't already exist. `mkdir_p` will create all intermediate directories as needed.
+    
+### rm(path, [path1, ..., pathN])
+### rm_rf(path, [path1, ..., pathN])
+
+Remove one or more paths from the file system. `rm_rf` will remove directories and their contents.
+    
+### cp(from, to)
+
+Copy a file from `from` path to `to` path.
+    
+### mv(from, to)
+
+Move a file from `from` path to `to` path.
+    
+### ln(from, to)
+
+Create a hard link from `from` path to `to` path.
+    
+### ln_s(from, to)
+
+Create a symlink from `from` path to `to` path.
+    
+### cat(path, [path1, ..., pathN])
+
+Synchronously read all supplied paths and return their contents as a string. If an argument is an `Array` it will be expanded and those paths will be read.
+    
+### read(path, [enc])
+
+Synchronously read the supplied file path. Returns a `buffer`, or a `string` if `enc` is given.
+    
+### write(path, data, [enc], mode="w")
+
+Synchronously write the `data` to the supplied file `path`. `data` should be a `buffer` or a `string` if `enc` is given. `mode` is a `string` of either "w", for over write,  or "a" for append.
+
+### sh(cmd, success, [failure])
+
+Execute shell `cmd`. On success the `success` handler will be called, on error, the `failure` function.
+
+This method is *asynchronous*, and if used in a task, one should call `Task.startAsync` or the `task#startAsync` to indicate that the task is asynchronous. Clear the *asynchronous* flag by calling `Task.clearAsync`, or the `task#clearAsync` method in the `success` or `failure` handler.
+
+
 Stitch Usage
 ------------
 
@@ -345,13 +345,34 @@ stitch(function (cfg) {
         });
     });
     
-    cfg.bundle("sub-module", function (sub) {
+    this.bundle("sub-module", function (sub) {
         sub.include("core");
         
         this.js("src/js/sub-module.js");
         this.scss("src/css/sub-module.scss");
     });
 });
+~~~
+
+or the equivalent *CoffeeScript*:
+
+~~~js
+stitch.aliasType "text/stylesheet", "scss"
+
+stitch (cfg)->
+    cfg.bundle "core", (core)->
+        core.javascript ->
+            core.add "src/js/core.js"
+        
+        core.stylesheet ->
+            @add "src/css/core.scss"
+            @add "src/css/reset.scss"
+        
+    @bundle "sub-module", (sub)->
+        sub.include "core"
+        
+        @js "src/js/sub-module.js"
+        @scss "src/css/sub-module.scss"
 ~~~
 
 ### Types
