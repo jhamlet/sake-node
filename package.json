@@ -1,7 +1,7 @@
 {   
     "name": "sake",
     "description": "A Rake-like application for managing builds and for Stitching JavaScript, CSS, HTML, and other sundry files together for web development.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "keywords": ["packager", "css", "javascript", "html", "web", "development"],
     "main": "./lib/app.js",
     "bin": {
@@ -11,8 +11,8 @@
         "lib": "lib"
     },
     "dependencies": {
-        "proteus":  ">=0.0.7",
-        "nomnom":   ">=1.5.1",
+        "proteus":  ">=0.0.x",
+        "nomnom":   ">=1.5.x",
         "glob":     ">=2.1.0"
     },
     "devDependencies": {
@@ -28,6 +28,5 @@
         "type": "git",
         "url": "http://github.com/jhamlet/sake-node.git"
     },
-    "engines": { "node": ">= 0.5.9" },
     "preferGlobal": true
 }
