@@ -1,4 +1,0 @@
-
-(function () {
-    // sub-module.js
-}());

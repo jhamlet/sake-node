@@ -1,4 +1,0 @@
-
-(function () {
-    // core.js
-}());
