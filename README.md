@@ -1,4 +1,4 @@
 SAKÉ
 ====
 
-Has a new API an has moved to [node-sake](https://github.com/jhamlet/node-sake)
+Has a new API and has moved to [node-sake](https://github.com/jhamlet/node-sake)
